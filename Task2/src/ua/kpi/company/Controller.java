@@ -1,7 +1,6 @@
 package ua.kpi.company;
 
 import java.util.Scanner;
-import java.util.ResourceBundle;
 
 /**
  * Created by Anya on 11.05.2017.
@@ -11,8 +10,7 @@ import java.util.ResourceBundle;
 public class Controller {
     Model model;
     View view;
-    static int number;
-    private ResourceBundle stringConstants = ResourceBundle.getBundle("resources/constants");
+    static int guessNumber;
 
 
     public Controller(Model model, View view) {
@@ -27,46 +25,32 @@ public class Controller {
 
     public int inputNumber() {
         Scanner sc = new Scanner(System.in);
-        view.printMessage(stringConstants.getString("INPUT_DATA") + " "+ model.getMin() + " and " + model.getMax());
+        view.printFewMessages(View.INPUT_DATA, String.valueOf(model.getminBorderOfRange()), String.valueOf(model.getmaxBorderOfRange()));
         try {
-            number = sc.nextInt();
+            guessNumber = sc.nextInt();
         } catch (Exception e) {
-            view.printMessage(stringConstants.getString("WRONG_INPUT_INT_DATA"));
+            view.printMessage(View.WRONG_INPUT_INT_DATA);
         }
-        return number;
-    }
-
-    private void setOfRange(int number) {
-        if (number < model.getNumberForGuess()) {
-            model.setMin(number);
-        } else if (number > model.getNumberForGuess()) {
-            model.setMax(number);
-        }
-    }
-
-    private boolean isTrueRange (int number){
-        if (number<model.getMin() || number >model.getMax()) {
-            return false;
-        }
-        return true;
+        return guessNumber;
     }
 
     public void game() {
-        int temp = inputNumber();
-        while (temp != model.getNumberForGuess()) {
-            if (!isTrueRange(temp)) {
-                view.printMessage(stringConstants.getString("WRONG_RANGE"));
+        int inputetValueFromScanner = inputNumber();
+        while (inputetValueFromScanner != model.getrandomWinNumber()) {
+            if (!model.isTrueRange(inputetValueFromScanner)) {
+                view.printMessage(View.WRONG_RANGE);
             } else {
-                setOfRange(temp);
-                model.numbersList.add(temp);}
-                view.printMessageAndInt(stringConstants.getString("WRONG_NUMBER"), stringConstants.getString("ARRAY_OUTPUT"));
-                view.printArrayOfNumbers(model.getNumbersList());
-                temp = inputNumber();
-           }
-            model.numbersList.add(temp);
-            view.printMessageAndInt(stringConstants.getString("OUR_INT"), String.valueOf(temp));
-            view.printMessage(stringConstants.getString("ARRAY_OUTPUT"));
-            view.printArrayOfNumbers(model.getNumbersList());
+                model.setOfRange(inputetValueFromScanner);
+                model.listOfPreviousNumbers.add(inputetValueFromScanner);
+            }
+            view.printFewMessages(View.WRONG_NUMBER, View.ARRAY_OUTPUT);
+            view.printArrayOfNumbers(model.getlistOfPreviousNumbers());
+            inputetValueFromScanner = inputNumber();
+        }
+        model.listOfPreviousNumbers.add(inputetValueFromScanner);
+        view.printFewMessages(View.OUR_INT, String.valueOf(inputetValueFromScanner));
+        view.printMessage(View.ARRAY_OUTPUT);
+        view.printArrayOfNumbers(model.getlistOfPreviousNumbers());
 
     }
 
