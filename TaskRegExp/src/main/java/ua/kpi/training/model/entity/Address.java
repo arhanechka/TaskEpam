@@ -1,13 +1,28 @@
 package ua.kpi.training.model.entity;
 
 /**
- * Created by Anya on 14.05.2017.
+ * Class for input the addess data of current user.
  */
 public class Address {
+    /**
+     * The {@link Address#index} field representing postal index.
+     */
     private String index;
+    /**
+     * The {@link Address#town} field representing town where member lives.
+     */
     private String town;
+    /**
+     * The {@link Address#street} field representing street where member lives.
+     */
     private String street;
+    /**
+     * The {@link Address#homeNumber} field representing number of house where member lives.
+     */
     private String homeNumber;
+    /**
+     * The {@link Address#appartmentNumber} field representing number of appartment where member lives.
+     */
     private String appartmentNumber;
 
     public String getIndex() {

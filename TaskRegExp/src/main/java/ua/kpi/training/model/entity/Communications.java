@@ -4,10 +4,25 @@ package ua.kpi.training.model.entity;
  * Created by Anya on 14.05.2017.
  */
 public class Communications {
+    /**
+     * The {@link Communications#phoneNumberHome} field representing the number of member's home phone.
+     */
     private String phoneNumberHome;
+    /**
+     * The {@link Communications#phoneNumberMobileFirst} field representing the member's first mobile number.
+     */
     private String phoneNumberMobileFirst;
+    /**
+     * The {@link Communications#phoneNumberMobileSecond} field representing the member's second mobile number if it is exist, or none.
+     */
     private String phoneNumberMobileSecond;
+    /**
+     * The {@link Communications#emailAddress} field representing the member's email.
+     */
     private String emailAddress;
+    /**
+     * The {@link Communications#skypeNickName} field representing the member's skype nickname.
+     */
     private String skypeNickName;
 
     public Communications() {

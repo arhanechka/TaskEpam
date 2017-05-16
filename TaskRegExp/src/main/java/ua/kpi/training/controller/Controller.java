@@ -1,6 +1,7 @@
 package ua.kpi.training.controller;
 
 import ua.kpi.training.controller.services.UserInputData;
+import ua.kpi.training.model.DataBaseException;
 import ua.kpi.training.model.entity.DataBase;
 import ua.kpi.training.model.entity.GlobalInformation;
 import ua.kpi.training.view.View;
@@ -22,7 +23,7 @@ public class Controller {
         sc = new Scanner(System.in);
     }
 
-    public void processUser() {
+    public void processUser() throws DataBaseException {
         view.printMessage(view.IF_CREATE_NEW_USER);
         while (!sc.next().equals("N")) {
             userInputData.createNote();

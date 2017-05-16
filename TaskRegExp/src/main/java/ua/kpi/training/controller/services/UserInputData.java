@@ -1,5 +1,6 @@
 package ua.kpi.training.controller.services;
 
+import ua.kpi.training.model.DataBaseException;
 import ua.kpi.training.model.Model;
 import ua.kpi.training.model.entity.*;
 import ua.kpi.training.view.TextConstants;
@@ -24,7 +25,7 @@ public class UserInputData {
         dataBase = DataBase.getInstance();
     }
 
-    public void createNote() {
+    public void createNote() throws DataBaseException {
         view.printMessage(view.GREETITNG_MESSAGE);
         addGlobalInformation();
         addCommentInformation();
@@ -34,7 +35,7 @@ public class UserInputData {
         addDateOfAdding();
     }
 
-    private void addGlobalInformation() {
+    private void addGlobalInformation() throws DataBaseException {
 
         GlobalInformation globalInformation = new GlobalInformation();
         view.printFewMessages(view.INPUT_INFORMATION_MESSAGE, TextConstants.NICKNAME);
@@ -97,10 +98,10 @@ public class UserInputData {
         model.setDateAdding(localDate);
     }
 
-    private String InputNickNameAndCheck(String pattern) {
+    private String InputNickNameAndCheck(String pattern) throws DataBaseException {
         String inputData = "";
         while (!(sc.hasNext() && (inputData = sc.next()).matches(pattern) && dataBase.checkNickName(inputData))) {
-            view.printFewMessages(view.BUSY_NICK_NAME);
+            throw new DataBaseException(view.BUSY_NICK_NAME);
         }
         return inputData;
 
