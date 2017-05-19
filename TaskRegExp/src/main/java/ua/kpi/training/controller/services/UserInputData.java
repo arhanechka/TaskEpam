@@ -28,11 +28,11 @@ public class UserInputData {
     public void createNote()  {
         view.printMessage(view.GREETITNG_MESSAGE);
         addGlobalInformation();
-//        addCommentInformation();
-//        addGroup();
-//        addComunicationInformation();
-//        addAddress();
-//        addDateOfAdding();
+        addCommentInformation();
+        addGroup();
+        addComunicationInformation();
+        addAddress();
+        addDateOfAdding();
     }
 
     private void addGlobalInformation() {
