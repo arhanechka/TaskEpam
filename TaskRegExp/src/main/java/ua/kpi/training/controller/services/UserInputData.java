@@ -25,27 +25,27 @@ public class UserInputData {
         dataBase = DataBase.getInstance();
     }
 
-    public void createNote() throws DataBaseException {
+    public void createNote()  {
         view.printMessage(view.GREETITNG_MESSAGE);
         addGlobalInformation();
-        addCommentInformation();
-        addGroup();
-        addComunicationInformation();
-        addAddress();
-        addDateOfAdding();
+//        addCommentInformation();
+//        addGroup();
+//        addComunicationInformation();
+//        addAddress();
+//        addDateOfAdding();
     }
 
-    private void addGlobalInformation() throws DataBaseException {
+    private void addGlobalInformation() {
 
         GlobalInformation globalInformation = new GlobalInformation();
         view.printFewMessages(view.INPUT_INFORMATION_MESSAGE, TextConstants.NICKNAME);
-        globalInformation.setNickName(InputNickNameAndCheck(RegExExpressions.NICKNAME_REGEX));
+        globalInformation.setNickName(inputNickNameAndCheck(RegExExpressions.NICKNAME_REGEX));
         view.printFewMessages(view.INPUT_INFORMATION_MESSAGE, TextConstants.LASTNAME);
-        globalInformation.setLastName(InputAndCheckData(RegExExpressions.ALL_NAMES_REGEX));
+        globalInformation.setLastName(inputAndCheckData(RegExExpressions.ALL_NAMES_REGEX));
         view.printFewMessages(view.INPUT_INFORMATION_MESSAGE, TextConstants.FIRSTNAME);
-        globalInformation.setFirstName(InputAndCheckData(RegExExpressions.ALL_NAMES_REGEX));
+        globalInformation.setFirstName(inputAndCheckData(RegExExpressions.ALL_NAMES_REGEX));
         view.printFewMessages(view.INPUT_INFORMATION_MESSAGE, TextConstants.MIDDLENAME);
-        globalInformation.setMiddleName(InputAndCheckData(RegExExpressions.ALL_NAMES_REGEX));
+        globalInformation.setMiddleName(inputAndCheckData(RegExExpressions.ALL_NAMES_REGEX));
 
 
         model.setGlobalInformation(globalInformation);
@@ -59,55 +59,57 @@ public class UserInputData {
     private void addGroup() {
         Groups groups = Groups.None;
         view.printFewMessages(view.GROUP_CHECKING_MESSAGE, Groups.Friends.toString(), Groups.Family.toString(), Groups.Work.toString(), Groups.Services.toString(), Groups.None.toString());
-        groups = Groups.valueOf(InputAndCheckData(RegExExpressions.GROUP_REGEX));
+        groups = Groups.valueOf(inputAndCheckData(RegExExpressions.GROUP_REGEX));
         model.setGroup(groups);
     }
 
     private void addComunicationInformation() {
         Communications communications = new Communications();
         view.printFewMessages(view.INPUT_INFORMATION_MESSAGE, TextConstants.HOME_PHONE_NUMBER);
-        communications.setPhoneNumberHome(InputAndCheckData(RegExExpressions.PHONE_REGEX));
+        communications.setPhoneNumberHome(inputAndCheckData(RegExExpressions.PHONE_REGEX));
         view.printFewMessages(view.INPUT_INFORMATION_MESSAGE, TextConstants.MOBILE_PHONE_NUMBER);
-        communications.setPhoneNumberMobileFirst(InputAndCheckData(RegExExpressions.PHONE_REGEX));
+        communications.setPhoneNumberMobileFirst(inputAndCheckData(RegExExpressions.PHONE_REGEX));
         view.printFewMessages(view.IS_SECOND_MOBILE_EXIST, TextConstants.SECOND_MOBILE_PHONE_NUMBER);
-        communications.setPhoneNumberMobileSecond(InputAndCheckData(RegExExpressions.SECOND_MOBILE));
+        communications.setPhoneNumberMobileSecond(inputAndCheckData(RegExExpressions.SECOND_MOBILE));
         view.printFewMessages(view.INPUT_INFORMATION_MESSAGE, TextConstants.EMAIL);
-        communications.setEmailAddress(InputAndCheckData(RegExExpressions.EMAIL_REGEX));
+        communications.setEmailAddress(inputAndCheckData(RegExExpressions.EMAIL_REGEX));
         view.printFewMessages(view.INPUT_INFORMATION_MESSAGE, TextConstants.SKYPE);
-        communications.setSkypeNickName(InputAndCheckData(RegExExpressions.NICKNAME_REGEX));
+        communications.setSkypeNickName(inputAndCheckData(RegExExpressions.NICKNAME_REGEX));
         model.setCommunications(communications);
     }
 
     private void addAddress() {
         Address address = new Address();
         view.printFewMessages(view.INPUT_INFORMATION_MESSAGE, TextConstants.POSTAL_INDEX);
-        address.setIndex(InputAndCheckData(RegExExpressions.INDEX_REGEX));
+        address.setIndex(inputAndCheckData(RegExExpressions.INDEX_REGEX));
         view.printFewMessages(view.INPUT_INFORMATION_MESSAGE, TextConstants.TOWN);
-        address.setTown(InputAndCheckData(RegExExpressions.CITY_REGEX));
+        address.setTown(inputAndCheckData(RegExExpressions.CITY_REGEX));
         view.printFewMessages(view.INPUT_INFORMATION_MESSAGE, TextConstants.STREET);
-        address.setStreet(InputAndCheckData(RegExExpressions.ALL_NAMES_REGEX));
+        address.setStreet(inputAndCheckData(RegExExpressions.ALL_NAMES_REGEX));
         view.printFewMessages(view.INPUT_INFORMATION_MESSAGE, TextConstants.HOUSE_NUMBER);
-        address.setHomeNumber(InputAndCheckData(RegExExpressions.HOUSE_REGEX));
+        address.setHomeNumber(inputAndCheckData(RegExExpressions.HOUSE_REGEX));
         view.printFewMessages(view.INPUT_INFORMATION_MESSAGE, TextConstants.FLAT_NUMBER);
-        address.setAppartmentNumber(InputAndCheckData(RegExExpressions.NUMBER_REGEX));
+        address.setAppartmentNumber(inputAndCheckData(RegExExpressions.NUMBER_REGEX));
         model.setAddress(address);
     }
 
-        private void addDateOfAdding(){
+    private void addDateOfAdding() {
         LocalDate localDate = LocalDate.now();
         model.setDateAdding(localDate);
     }
 
-    private String InputNickNameAndCheck(String pattern) throws DataBaseException {
-        String inputData = "";
-        while (!(sc.hasNext() && (inputData = sc.next()).matches(pattern) && dataBase.checkNickName(inputData))) {
-            throw new DataBaseException(view.BUSY_NICK_NAME);
+    private String inputNickNameAndCheck(String pattern) {
+        String inputData = inputAndCheckData(pattern);
+        try {
+            dataBase.checkNickName(inputData, view.BUSY_NICK_NAME);
+        } catch (DataBaseException e) {
+            view.printFewMessages(view.WRONG_INFORMATION_MESSAGE);
+            addGlobalInformation();
         }
         return inputData;
-
     }
 
-    private String InputAndCheckData(String pattern) {
+    private String inputAndCheckData(String pattern) {
         String inputData = "";
         while (!(sc.hasNext() && (inputData = sc.next()).matches(pattern)))
             view.printFewMessages(view.WRONG_INFORMATION_MESSAGE);

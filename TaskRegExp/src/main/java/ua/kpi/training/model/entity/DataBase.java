@@ -1,5 +1,6 @@
 package ua.kpi.training.model.entity;
 
+import ua.kpi.training.model.DataBaseException;
 import ua.kpi.training.model.Model;
 
 import java.lang.reflect.Array;
@@ -20,12 +21,12 @@ public class DataBase {
         return dataBase;
     }
 
-    public boolean checkNickName(String nickName){
+    public void checkNickName(String nickName, String error) throws DataBaseException {
         for (Model model : noteBook) {
          if (nickName.equals(model.getGlobalInformation().getNickName()))
-             return false;
+             throw new DataBaseException(error);
         }
-        return true;
+
     }
 
     public ArrayList<Model> getNoteBook() {
