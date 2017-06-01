@@ -40,20 +40,20 @@ public class Controller {
         try (Scanner scanner = new Scanner(new InputStreamReader(System.in));) {
             bouquetCollector(scanner);
             view.printMessage(TextConstants.BOUQUET);
-            view.printArrayOfPurchases(bouquet);
+            view.printArrayOfFlowersWithFreshLevel(bouquet);
             view.printMessage(TextConstants.FULL_BOUQUET_PRICE + modelFlower.bouquetPrice(bouquet));
             modelFlower.sortByFresh(bouquet);
             view.printMessage(TextConstants.SORTED_BOUQUET);
-            view.printArrayOfPurchases(bouquet);
+            view.printArrayOfFlowersWithFreshLevel(bouquet);
             accesoriesCollector(scanner);
             view.printMessage(TextConstants.ACCESSORIES);
             view.printArrayOfPurchases(accesories);
-            view.printMessage(TextConstants.FULL_ACCESSORIES_PRICE+modelAccesories.accessoriesPrice(accesories));
+            view.printMessage(TextConstants.FULL_ACCESSORIES_PRICE + modelAccesories.accessoriesPrice(accesories));
             modelPurchase.setPurchaseArray(bouquet, accesories);
             purchases = modelPurchase.getAllPurchasesArray();
             view.printMessage(TextConstants.PURCHASES);
-            view.printArrayOfPurchases(purchases);
-            view.printMessage(TextConstants.FULL_PURCHASE_PRICE+modelPurchase.getFullPrice());
+            view.printArrayOfPurchasesWithPrice(purchases);
+            view.printMessage(TextConstants.FULL_PURCHASE_PRICE + modelPurchase.getFullPrice());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,7 +81,7 @@ public class Controller {
     public void accesoriesCollector(Scanner scanner) {
         view.printMessage(TextConstants.ACCESORIES_CHOOSING);
         int choosenAccesory = scanner.nextInt();
-        while (!isPurchaseComplited(choosenAccesory,TextConstants.ACCESSORIES_NUMBER)) {
+        while (!isPurchaseComplited(choosenAccesory, TextConstants.ACCESSORIES_NUMBER)) {
             Accessories nextAccessory = modelAccesories.chooseAccesory(choosenAccesory);
             if (nextAccessory != null)
                 accesories.add(nextAccessory);
@@ -89,12 +89,13 @@ public class Controller {
             choosenAccesory = scanner.nextInt();
         }
     }
-public boolean isPurchaseComplited(int chosenNumber, Integer compare){
-    if (chosenNumber!=compare) {
-        return false;
+
+    public boolean isPurchaseComplited(int chosenNumber, Integer compare) {
+        if (chosenNumber != compare) {
+            return false;
+        }
+        return true;
     }
-    return true;
-}
 
 }
 

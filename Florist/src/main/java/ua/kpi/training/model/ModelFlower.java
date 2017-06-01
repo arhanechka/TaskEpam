@@ -68,12 +68,12 @@ public class ModelFlower {
         return null;
     }
 
-    public double bouquetPrice(ArrayList<Flower> bouquet) {
+    public String bouquetPrice(ArrayList<Flower> bouquet) {
         double fullCost = 0;
         for (Flower flower : bouquet) {
             fullCost += flower.getPrice();
         }
-        return fullCost;
+        return String.format("%.2f", fullCost);
     }
 
     public void sortByFresh(ArrayList<Flower> bouquet) {

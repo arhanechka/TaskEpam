@@ -14,6 +14,7 @@ public interface TextConstants {
     String BOUQUET = "The collected bouquet:";
     String ACCESSORIES = "The collected accessories:";
     String PURCHASES = "The full collected purchase:";
+    String FRESH_LEVEL = " Fresh level: ";
     Integer FLOWERS_NUMBER = 5;
     Integer ACCESSORIES_NUMBER = 4;
 

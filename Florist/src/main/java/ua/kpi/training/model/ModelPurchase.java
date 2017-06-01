@@ -36,7 +36,7 @@ public class ModelPurchase {
         }
     }
 
-    public double getFullPrice() {
-        return fullPrice;
+    public String getFullPrice() {
+        return String.format("%.2f", fullPrice);
     }
 }

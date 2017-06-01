@@ -44,12 +44,12 @@ public class ModelAccessories {
         return null;
     }
 
-    public double accessoriesPrice(ArrayList<Accessories> accesories) {
+    public String accessoriesPrice(ArrayList<Accessories> accesories) {
         double fullCost = 0;
         for (Accessories ac : accesories) {
             fullCost += ac.getPrice();
         }
-        return fullCost;
+        return String.format("%.2f", fullCost);
     }
 
 
