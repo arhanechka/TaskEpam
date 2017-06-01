@@ -61,26 +61,27 @@ public class Controller {
 
     public void bouquetCollector(Scanner scanner) {
         view.printMessage(TextConstants.FLOWER_CHOOSING);
-        int choosenFlower = 0;
+        int choosenFlower = scanner.nextInt();
         view.printMessage(TextConstants.COLOR_CHOOSING);
-        int choosenColour = 0;
-        while (choosenFlower != TextConstants.FLOWERS_NUMBER) {
+        int choosenColour = scanner.nextInt();
+        while (!isPurchaseComplited(choosenFlower, TextConstants.FLOWERS_NUMBER)) {
             Flower nextFlower = modelFlower.checkFlowerName(choosenFlower, choosenColour);
             if (nextFlower != null)
                 bouquet.add(nextFlower);
             view.printMessage(TextConstants.FLOWER_CHOOSING);
             choosenFlower = scanner.nextInt();
-            view.printMessage(TextConstants.COLOR_CHOOSING);
-            choosenColour = scanner.nextInt();
+            if (!isPurchaseComplited(choosenFlower, TextConstants.FLOWERS_NUMBER)) {
+                view.printMessage(TextConstants.COLOR_CHOOSING);
+                choosenColour = scanner.nextInt();
+            }
         }
 
     }
 
     public void accesoriesCollector(Scanner scanner) {
         view.printMessage(TextConstants.ACCESORIES_CHOOSING);
-
         int choosenAccesory = scanner.nextInt();
-        while (choosenAccesory != TextConstants.ACCESSORIES_NUMBER) {
+        while (!isPurchaseComplited(choosenAccesory,TextConstants.ACCESSORIES_NUMBER)) {
             Accessories nextAccessory = modelAccesories.chooseAccesory(choosenAccesory);
             if (nextAccessory != null)
                 accesories.add(nextAccessory);
@@ -88,7 +89,12 @@ public class Controller {
             choosenAccesory = scanner.nextInt();
         }
     }
-
+public boolean isPurchaseComplited(int chosenNumber, Integer compare){
+    if (chosenNumber!=compare) {
+        return false;
+    }
+    return true;
+}
 
 }
 
