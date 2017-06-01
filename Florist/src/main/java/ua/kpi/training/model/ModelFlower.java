@@ -1,16 +1,20 @@
 package ua.kpi.training.model;
 
-import ua.kpi.training.model.entity.creators.*;
-import ua.kpi.training.model.entity.flowers.CatalogFlowers;
-import ua.kpi.training.model.entity.flowers.Colour;
-import ua.kpi.training.model.entity.flowers.Flower;
+import ua.kpi.training.model.entity.creators.flowerCreators.*;
+import ua.kpi.training.model.entity.purchases.CatalogPurchases;
+import ua.kpi.training.model.entity.purchases.flowers.Colour;
+import ua.kpi.training.model.entity.purchases.flowers.Flower;
+
 import java.util.*;
 
 /**
  * Created by Anya on 31.05.2017.
  */
-public class Model {
-    CatalogFlowers catalogFlowers = CatalogFlowers.getInstance();
+public class ModelFlower {
+    ResourceBundle rb = ResourceBundle.getBundle("catalog");
+    String flowersFileName = rb.getString("flower_price");
+    CatalogPurchases catalogFlowers = new CatalogPurchases(flowersFileName);
+
     String WRONG_FLOWER_NAME = "Your flower is not exist. Please choose one in the range";
 
 
@@ -34,7 +38,7 @@ public class Model {
 
     public Flower checkFlowerName(int choosenFlower, int choosenColour) {
         FlowerCreator flowerCreator;
-        String[] flowerAttributes = catalogFlowers.getCatalogFlowers().get(choosenFlower);
+        String[] flowerAttributes = catalogFlowers.getCatalog().get(choosenFlower);
         String flowerName = flowerAttributes[0];
         String receivingDate = flowerAttributes[1];
         double flowerPrice = Double.parseDouble(flowerAttributes[2]);
@@ -43,19 +47,19 @@ public class Model {
         switch (choosenFlower) {
             case 1: {
                 flowerCreator = new ChamomileCreator();
-                return flowerCreator.createFlower(flowerName,receivingDate,flowerPrice,stemLength,flowerColour);
+                return flowerCreator.createFlower(flowerName, receivingDate, flowerPrice, stemLength, flowerColour);
             }
             case 2: {
                 flowerCreator = new PeonyCreator();
-                return flowerCreator.createFlower(flowerName,receivingDate,flowerPrice,stemLength,flowerColour);
+                return flowerCreator.createFlower(flowerName, receivingDate, flowerPrice, stemLength, flowerColour);
             }
             case 3: {
                 flowerCreator = new RoseCreator();
-                return flowerCreator.createFlower(flowerName,receivingDate,flowerPrice,stemLength,flowerColour);
+                return flowerCreator.createFlower(flowerName, receivingDate, flowerPrice, stemLength, flowerColour);
             }
             case 4: {
                 flowerCreator = new TulipCreator();
-                return flowerCreator.createFlower(flowerName,receivingDate,flowerPrice,stemLength,flowerColour);
+                return flowerCreator.createFlower(flowerName, receivingDate, flowerPrice, stemLength, flowerColour);
             }
             default: {
                 System.out.println(WRONG_FLOWER_NAME);

@@ -1,0 +1,4 @@
+Catalog of accessories
+cover 10.40
+ribbon 2.33
+decoration 15.12

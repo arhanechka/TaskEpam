@@ -1,7 +1,7 @@
-package ua.kpi.training.model.entity.creators;
+package ua.kpi.training.model.entity.creators.flowerCreators;
 
-import ua.kpi.training.model.entity.flowers.Colour;
-import ua.kpi.training.model.entity.flowers.Flower;
+import ua.kpi.training.model.entity.purchases.flowers.Colour;
+import ua.kpi.training.model.entity.purchases.flowers.Flower;
 
 /**
  * Created by Anya on 31.05.2017.

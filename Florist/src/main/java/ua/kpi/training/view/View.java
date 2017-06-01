@@ -16,9 +16,9 @@ public class View<T> {
         }
     }
 
-    public void printArrayOfFlowers(ArrayList<T> flowers) {
-        for (T flower : flowers) {
-            System.out.println(flower);
+    public void printArrayOfPurchases(ArrayList<T> purchases) {
+        for (T purchase : purchases) {
+            System.out.println(purchase);
         }
     }
 }

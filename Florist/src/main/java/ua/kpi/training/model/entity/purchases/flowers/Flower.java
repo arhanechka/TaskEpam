@@ -1,13 +1,14 @@
-package ua.kpi.training.model.entity.flowers;
+package ua.kpi.training.model.entity.purchases.flowers;
+
+import ua.kpi.training.model.entity.purchases.Purchase;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.GregorianCalendar;
 
 /**
  * Created by Anya on 31.05.2017.
  */
-public class Flower {
+public class Flower implements Purchase {
     private String name;
     private int freshLevel;
     private double price;

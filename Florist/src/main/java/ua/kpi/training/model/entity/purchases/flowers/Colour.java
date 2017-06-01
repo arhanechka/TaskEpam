@@ -1,4 +1,4 @@
-package ua.kpi.training.model.entity.flowers;
+package ua.kpi.training.model.entity.purchases.flowers;
 
 /**
  * Created by Anya on 31.05.2017.
