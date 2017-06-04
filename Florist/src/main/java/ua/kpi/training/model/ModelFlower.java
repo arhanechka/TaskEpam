@@ -15,8 +15,6 @@ public class ModelFlower {
     String flowersFileName = rb.getString("flower_price");
     CatalogPurchases catalogFlowers = new CatalogPurchases(flowersFileName);
 
-    String WRONG_FLOWER_NAME = "Your flower is not exist. Please choose one in the range";
-
 
     private Colour chooseColour(int choosenColour) {
         switch (choosenColour) {
@@ -44,28 +42,8 @@ public class ModelFlower {
         double flowerPrice = Double.parseDouble(flowerAttributes[2]);
         double stemLength = Double.parseDouble(flowerAttributes[3]);
         Colour flowerColour = chooseColour(choosenColour);
-        switch (choosenFlower) {
-            case 1: {
-                flowerCreator = new ChamomileCreator();
-                return flowerCreator.createFlower(flowerName, receivingDate, flowerPrice, stemLength, flowerColour);
-            }
-            case 2: {
-                flowerCreator = new PeonyCreator();
-                return flowerCreator.createFlower(flowerName, receivingDate, flowerPrice, stemLength, flowerColour);
-            }
-            case 3: {
-                flowerCreator = new RoseCreator();
-                return flowerCreator.createFlower(flowerName, receivingDate, flowerPrice, stemLength, flowerColour);
-            }
-            case 4: {
-                flowerCreator = new TulipCreator();
-                return flowerCreator.createFlower(flowerName, receivingDate, flowerPrice, stemLength, flowerColour);
-            }
-            default: {
-                System.out.println(WRONG_FLOWER_NAME);
-            }
-        }
-        return null;
+        flowerCreator = new ConcreteFlowerCreator();
+        return flowerCreator.createFlower(choosenFlower, flowerName, receivingDate, flowerPrice, stemLength, flowerColour);
     }
 
     public String bouquetPrice(ArrayList<Flower> bouquet) {
