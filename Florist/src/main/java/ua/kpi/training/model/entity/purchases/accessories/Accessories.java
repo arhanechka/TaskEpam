@@ -1,35 +1,25 @@
 package ua.kpi.training.model.entity.purchases.accessories;
 
+import ua.kpi.training.model.entity.builders.AccessoryBuilder;
 import ua.kpi.training.model.entity.purchases.Purchase;
 
 /**
  * Created by Anya on 01.06.2017.
  */
 public class Accessories implements Purchase {
-    private String name;
-    private double price;
+    AccessoryBuilder accessoryBuilder;
 
-    public Accessories(String name, double price) {
-        setName(name);
-        setPrice(price);
+    public Accessories(AccessoryBuilder accessoryBuilder) {
+        this.accessoryBuilder = accessoryBuilder;
     }
 
     public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public void setPrice(double price) {
-        this.price = price;
+        return accessoryBuilder.getName();
     }
 
     @Override
     public double getPrice() {
-        return price;
+        return accessoryBuilder.getPrice();
     }
 
     @Override

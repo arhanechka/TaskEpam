@@ -1,5 +1,7 @@
 package ua.kpi.training.model.entity.purchases.flowers;
 
+import ua.kpi.training.model.entity.builders.FlowerBuilder;
+import ua.kpi.training.model.entity.creators.flowerCreators.FlowerCreator;
 import ua.kpi.training.model.entity.purchases.Purchase;
 
 import java.util.Calendar;
@@ -9,18 +11,12 @@ import java.util.GregorianCalendar;
  * Created by Anya on 31.05.2017.
  */
 public class Flower implements Purchase {
-    private String name;
     private int freshLevel;
-    private double price;
-    private double stemLength;
-    private Colour colour;
+    FlowerBuilder flowerBuilder;
 
-    public Flower(String name, String receivingDate, double price, double stemLength, Colour colour) {
-        setName(name);
-        setFreshLevel(receivingDate);
-        setPrice(price);
-        setStemLength(stemLength);
-        setColour(colour);
+    public Flower(FlowerBuilder flowerBuilder) {
+        this.flowerBuilder = flowerBuilder;
+        setFreshLevel(flowerBuilder.getReceivingDate());
     }
 
     public void setFreshLevel(String receiving) {
@@ -35,11 +31,7 @@ public class Flower implements Purchase {
     }
 
     public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        return flowerBuilder.getName();
     }
 
     public int getFreshLevel() {
@@ -48,27 +40,15 @@ public class Flower implements Purchase {
 
 
     public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
+        return flowerBuilder.getPrice();
     }
 
     public double getStemLength() {
-        return stemLength;
-    }
-
-    public void setStemLength(double stemLength) {
-        this.stemLength = stemLength;
+        return flowerBuilder.getStemLength();
     }
 
     public Colour getColour() {
-        return colour;
-    }
-
-    public void setColour(Colour colour) {
-        this.colour = colour;
+        return flowerBuilder.getColour();
     }
 
     @Override

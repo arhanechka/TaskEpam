@@ -1,5 +1,6 @@
 package ua.kpi.training.model;
 
+import ua.kpi.training.model.entity.builders.FlowerBuilder;
 import ua.kpi.training.model.entity.creators.flowerCreators.*;
 import ua.kpi.training.model.entity.purchases.CatalogPurchases;
 import ua.kpi.training.model.entity.purchases.flowers.Colour;
@@ -14,7 +15,7 @@ public class ModelFlower {
     ResourceBundle rb = ResourceBundle.getBundle("catalog");
     String flowersFileName = rb.getString("flower_price");
     CatalogPurchases catalogFlowers = new CatalogPurchases(flowersFileName);
-
+    FlowerBuilder flowerBuilder;
 
     private Colour chooseColour(int choosenColour) {
         switch (choosenColour) {
@@ -42,8 +43,9 @@ public class ModelFlower {
         double flowerPrice = Double.parseDouble(flowerAttributes[2]);
         double stemLength = Double.parseDouble(flowerAttributes[3]);
         Colour flowerColour = chooseColour(choosenColour);
+        flowerBuilder=new FlowerBuilder(flowerName, receivingDate, flowerPrice, stemLength, flowerColour);
         flowerCreator = new ConcreteFlowerCreator();
-        return flowerCreator.createFlower(choosenFlower, flowerName, receivingDate, flowerPrice, stemLength, flowerColour);
+        return flowerCreator.createFlower(choosenFlower, flowerBuilder);
     }
 
     public String bouquetPrice(ArrayList<Flower> bouquet) {

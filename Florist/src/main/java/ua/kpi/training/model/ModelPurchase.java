@@ -10,12 +10,21 @@ import java.util.ArrayList;
  * Created by Anya on 01.06.2017.
  */
 public class ModelPurchase {
-    ArrayList<Purchase> allPurchasesArray;
-    double fullPrice;
+    private static ModelPurchase instance;
+    static ArrayList<Purchase> allPurchasesArray;
+    static double fullPrice;
 
-    public ModelPurchase() {
-        allPurchasesArray = new ArrayList<>();
-        fullPrice = 0;
+    private ModelPurchase() {
+
+    }
+
+    public static ModelPurchase getInstance() {
+        if (instance == null) {
+            allPurchasesArray = new ArrayList<>();
+            fullPrice = 0;
+            return new ModelPurchase();
+        }
+        return instance;
     }
 
     public void setPurchaseArray(ArrayList<Flower> flowers, ArrayList<Accessories> accessories) {

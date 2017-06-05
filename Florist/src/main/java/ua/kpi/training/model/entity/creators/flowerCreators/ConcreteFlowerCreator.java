@@ -1,5 +1,6 @@
 package ua.kpi.training.model.entity.creators.flowerCreators;
 
+import ua.kpi.training.model.entity.builders.FlowerBuilder;
 import ua.kpi.training.model.entity.purchases.flowers.*;
 
 /**
@@ -9,19 +10,19 @@ public class ConcreteFlowerCreator implements FlowerCreator {
     String WRONG_FLOWER_NAME = "Your flower is not exist. Please choose one in the range";
 
     @Override
-    public Flower createFlower(int whichFlower, String flowerName, String receivingDate, double flowerPrice, double stemLength, Colour flowerColour) {
+    public Flower createFlower(int whichFlower, FlowerBuilder flowerBuilder) {
         switch (whichFlower) {
             case 1: {
-                return new Chamomile(flowerName, receivingDate, flowerPrice, stemLength, flowerColour);
+                return new Chamomile(flowerBuilder);
             }
             case 2: {
-                return new Peony(flowerName, receivingDate, flowerPrice, stemLength, flowerColour);
+                return new Peony(flowerBuilder);
             }
             case 3: {
-                return new Rose(flowerName, receivingDate, flowerPrice, stemLength, flowerColour);
+                return new Rose(flowerBuilder);
             }
             case 4: {
-                return new Tulip(flowerName, receivingDate, flowerPrice, stemLength, flowerColour);
+                return new Tulip(flowerBuilder);
             }
             default: {
                 System.out.println(WRONG_FLOWER_NAME);

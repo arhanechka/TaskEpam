@@ -32,7 +32,7 @@ public class Controller {
         bouquet = new ArrayList<>();
         accesories = new ArrayList<>();
         purchases = new ArrayList<>();
-        this.modelPurchase = new ModelPurchase();
+        this.modelPurchase = ModelPurchase.getInstance();
 
     }
 
