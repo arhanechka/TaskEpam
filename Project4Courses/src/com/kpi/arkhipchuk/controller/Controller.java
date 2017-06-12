@@ -4,7 +4,6 @@ import com.kpi.arkhipchuk.controller.pages.*;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,16 +17,16 @@ import java.util.Map;
 //@WebServlet("/Controller")
 public class Controller extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private static Map<String, Page> pages = new HashMap<>();
+    private static Map<String, Command> commands = new HashMap<>();
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        pages.put("NEW_STUDENT", new StudentRegPage());
-        pages.put("LOGIN_TEACHER", new TeacherLoginPage());
-        pages.put("LOGIN_STUDENT", new StudentLoginPage());
-        pages.put("LIST_COURSE_STUDENT", new StudentCourseList());
-        pages.put("LIST_COURSE_TEACHER", new TeacherCourseList());
+        commands.put("NEW_STUDENT", new StudentRegCommand());
+        commands.put("LOGIN_TEACHER", new TeacherLoginCommand());
+        commands.put("LOGIN_STUDENT", new StudentLoginCommand());
+        commands.put("LIST_COURSE_STUDENT", new StudentCourseList());
+        commands.put("LIST_COURSE_TEACHER", new TeacherCourseList());
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws javax.servlet.ServletException, IOException {
@@ -44,7 +43,7 @@ public class Controller extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String page = request.getParameter("page");
         try {
-            pages.get(page).launch(request, response);
+            commands.get(page).launch(request, response);
         } catch (RuntimeException ex) {
             request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
         }

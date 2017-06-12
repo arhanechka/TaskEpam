@@ -3,11 +3,19 @@ package com.kpi.arkhipchuk.model.entity;
 /**
  * Created by Anya on 07.06.2017.
  */
-public class Course {
+public class Course{
     private int id;
     private String name;
     private int status;
 
+    public Course(){
+    }
+
+    public Course(int id, String name, int status){
+        this.id = id;
+        this.name = name;
+        this.status = status;
+    }
     public int getId() {
         return id;
     }

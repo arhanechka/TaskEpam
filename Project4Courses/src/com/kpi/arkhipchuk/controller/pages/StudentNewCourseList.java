@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by Anya on 07.06.2017.
  */
-public class StudentNewCourseList extends Page {
+public class StudentNewCourseList extends Command {
     @Override
     public void launch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String firstName = request.getParameter("first_name");
