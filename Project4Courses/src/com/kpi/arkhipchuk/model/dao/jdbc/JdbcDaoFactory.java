@@ -1,9 +1,6 @@
 package com.kpi.arkhipchuk.model.dao.jdbc;
 
-import com.kpi.arkhipchuk.model.dao.DaoCourse;
-import com.kpi.arkhipchuk.model.dao.DaoFactory;
-import com.kpi.arkhipchuk.model.dao.DaoStudent;
-import com.kpi.arkhipchuk.model.dao.DaoTeacher;
+import com.kpi.arkhipchuk.model.dao.*;
 
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -53,5 +50,10 @@ public class JdbcDaoFactory extends DaoFactory {
     @Override
     public DaoTeacher createTeacherDao() {
         return new JdbcTeacherDao();
+    }
+
+    @Override
+    public DaoOptional createOptionalDao() {
+        return new JdbcOptionalDao();
     }
 }

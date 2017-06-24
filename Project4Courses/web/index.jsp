@@ -1,50 +1,43 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Anya
-  Date: 05.06.2017
-  Time: 20:15
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<!doctype html>
-<html>
-<head>
-  <meta charset="windows-1251">
-  <title>index</title>
-  <style type="text/css">
-    @import url("style.css");
-  </style>
-</head>
-
-<body>
-<section>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 col-md-offset-3">
-        <hgroup>
-          <h2>
-            Welcome to the system of distance cource</h2>
-          <h1 class="free">Elective</h1>
-        </hgroup>
-        <div class="well">
-          <div class="input-group">
-            <div> <h2>Have been registred?</h2></div>
-            <a href="./Controller?page=LOGIN_STUDENT">
-              <button class="btn btn-info btn-lg" type="submit" value="reg_student" name="reg_student">Registred student</button></a>
-            <a href="./Controller?page=LOGIN_TEACHER">
-              <button class="btn btn-info btn-lg" type="submit" value="reg_teacher" name="reg_teacher">Registred teacher</button></a>
-          </div>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
+<%--<f:param locale="${localeController.locale}">--%>
+<!DOCTYPE html>
+<html lang="ru">
+<%@ include file="/WEB-INF/view/jspf/head.jspf"%>
+<%@ include file="/WEB-INF/view/jspf/header.jspf"%>
+<div class="container">
+    <div class="jumbotron">
+        <div class="page-header">
+    <%--<h2>${translate.index.titul}</h2>--%>
+    <h2>Welcome to our new Elective System</h2>
         </div>
-          <div class="input-group">
-              <div> <h2>Are you a new participant?</h2></div>
-
-              <a href="./Controller?page=NEW_STUDENT">
-                <button class="btn btn-info btn-lg" type="submit" value="new_student" name="new_student">New student</button></a>
-            </div>
-
-      </div>
+    <%--<p:commandLink value="English" action="${localeController.selectLanguage('en')}" rendered="${localeController.en}"/>--%>
+    <%--<p:commandLink value="Українська" action="${localeController.selectLanguage('ua')}" rendered="${not localeController.en}"/>--%>
+        <p>You can find different courses for you distance learning on our web-resource. Please choose your profile and log in, or fill the registration form.</p>
+    <%--<p>${translate.index.text}</p>--%>
     </div>
-  </div>
-</section>
+    <div class="well well-lg col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+            <div class="row">
+                <div class="col-sm-9 col-sm-offset-2 col-xs-12 horiz-p-0px col-md-7 col-md-offset-3 col-lg-6 col-lg-offset-3">
+                    <a href="./Controller?page=LOGIN_STUDENT">
+                        <button type="submit" value="reg_student" name="reg_student" class="btn btn-primary horiz-p" id="l_s">Login Student
+                        </button>
+                    </a>
+                    <a href="./Controller?page=LOGIN_TEACHER">
+                    <button type="submit" value="reg_teacher" name="reg_teacher" class="btn btn-primary horiz-p">Login Teacher</button>
+                </a>
+                </div>
+            </div>
+            <p class="col-sm-5 col-sm-offset-4 col-xs-7 col-xs-offset-3"><br>
+                New student?</p>
+            <div class="row">
+                <div class="col-sm-5 col-sm-offset-4 col-xs-6 col-xs-offset-3">
+                    <a href="./Controller?page=NEW_STUDENT">
+                    <button type="submit" value="new_student" name="new_student" class="btn btn-primary btn-large">New student</button>
+                </a>
+                </div>
+            </div>
+    </div>
+</div>
 </body>
 </html>

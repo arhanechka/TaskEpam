@@ -10,5 +10,10 @@ public interface AddressConstants {
     String STUDENT_COURSE_LIST = "/WEB-INF/pages/student_course_list.jsp";
     String STUDENT_NEW_COURSE_LIST = "/WEB-INF/pages/student_new_course_list.jsp";
     String TEACHER_COURSE_LIST = "/WEB-INF/pages/teacher_course_list.jsp";
+    String COURSES_HISTORY = "/WEB-INF/pages/courses_history.jsp";
+    String CURRENT_COURSE_STUDENT_LIST = "/WEB-INF/pages/current_course_student_list.jsp";
+    String SET_STUDENT_MARK = "/WEB-INF/pages/set_student_mark.jsp";
+    String ERROR_PAGE = "/WEB-INF/pages/error.html";
+
 
 }

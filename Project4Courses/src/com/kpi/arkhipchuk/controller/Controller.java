@@ -1,6 +1,7 @@
 package com.kpi.arkhipchuk.controller;
 
-import com.kpi.arkhipchuk.controller.pages.*;
+import com.kpi.arkhipchuk.controller.command.*;
+import com.kpi.arkhipchuk.view.AddressConstants;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -27,6 +28,14 @@ public class Controller extends HttpServlet {
         commands.put("LOGIN_STUDENT", new StudentLoginCommand());
         commands.put("LIST_COURSE_STUDENT", new StudentCourseList());
         commands.put("LIST_COURSE_TEACHER", new TeacherCourseList());
+        commands.put("COURSES_HISTORY", new CoursesHistory());
+        commands.put("STUDENT_NEW_COURSE_LIST", new StudentNewCourseList());
+        commands.put("JOIN_NEW_COURSE_LIST", new JoinNewCourseList());
+        commands.put("START_NEW_COURSE", new StarNewCourse());
+        commands.put("STUDENTS_LIST_FOR_CURRENT_COURSE", new StudentsListForCurrentCourse());
+        commands.put("SET_STUDENT_MARK", new SetStudentMark());
+        commands.put("EXIT", new Exit());
+
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws javax.servlet.ServletException, IOException {
@@ -41,11 +50,12 @@ public class Controller extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        LocaleController localeController = new LocaleController();
         String page = request.getParameter("page");
         try {
-            commands.get(page).launch(request, response);
+            commands.get(page).execute(request, response);
         } catch (RuntimeException ex) {
-            request.getRequestDispatcher("/WEB-INF/index.jsp").forward(request, response);
+            request.getRequestDispatcher(AddressConstants.ERROR_PAGE).forward(request, response);
         }
     }
 }

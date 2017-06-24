@@ -1,47 +1,67 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Anya
-  Date: 07.06.2017
-  Time: 1:58
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
-<head>
-    <title>Student course list:</title>
-</head>
-<body>
-${greeting}
-<h3>Your current course list:</h3></br>
-<c:choose>
-    <c:when test="${currentCourseList}==null">
-        <h2>The current course list is empty</h2>
-    </c:when>
-    <c:otherwise>
-        <c:forEach var="course" items="${currentCourseList}">
-           <h4>${course.getKey().getName()}</h4>
-            <c:forEach var="courseval" items="${currentCourseList.values()}">
-                <c:forEach var="coursest" items="${courseval}">
-                   <h5> ${coursest.getLastName()}
-                    ${coursest.getFirstName()}</h5>
+<!DOCTYPE html>
+<html lang="ru">
+<%@ include file="/WEB-INF/view/jspf/head.jspf"%>
+<%@ include file="/WEB-INF/view/jspf/header.jspf"%>
+<div class="container-fluid">
+
+    <div class="well">
+        <h1>Welcome, ${participant.getFirstName()} ${participant.getLastName()}!</h1>
+    </div>
+    <div class="col-sm-6">
+        <div class="table-responsive">
+            <table class="table table-striped table-hover table-bordered">
+                <caption class="current_curs_caption">Current cources</caption>
+                <thead>
+                <tr>
+                    <th>Cource name</th>
+                    <th>Students list</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="course" items="${currentCourseList}">
+                    <tr>
+                        <td>${course.getName()}</td>
+                        <td>
+                            <a href="./Controller?page=STUDENTS_LIST_FOR_CURRENT_COURSE&courseId=${course.getId()}&courseName=${course.getName()}">
+                                <button class="btn-info">Open</button>
+                                </a>
+                        </td>
+                    </tr>
                 </c:forEach>
-            </c:forEach>
-            </br>
-        </c:forEach>
-    </c:otherwise>
-</c:choose>
-<%--<h3>Actual courses for join:</h3>--%>
-<%--</br>--%>
-<%--<c:forEach var="course1" items="${accessableCourseList}">--%>
-<%--<h4>${course1.getName()}</h4>--%>
-<%--</br>--%>
-<%--</c:forEach>--%>
-<%--<h3>Finished courses:</h3>--%>
-<%--</br>--%>
-<%--<c:forEach var="course2" items="${finishedCourseList}">--%>
-<%--<h4>${course2.getKey()} ${course2.getValue()}</h4>--%>
-<%--</br>--%>
-<%--</c:forEach>--%>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+        <div class="col-sm-6">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover table-bordered">
+                    <caption class="available_curs_caption">Finished cources</caption>
+                    <thead>
+                    <tr>
+                        <th>Cource name</th>
+                        <th>History</th>
+                        <th>Start</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <c:forEach var="course" items="${inactiveCourseList}">
+                        <tr>
+                        <td>${course.getName()}</td>
+                        <td><a href="./Controller?page=COURSES_HISTORY&courseId=${course.getId()}&courseName=${course.getName()}">History</a></td>
+                        <td>
+                            <a href="./Controller?page=START_NEW_COURSE&courseId=${course.getId()}&courseName=${course.getName()}">
+                            <button class="btn-success">Start</button></a>
+                        </td>
+                    </tr>
+                    </c:forEach>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

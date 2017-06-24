@@ -10,7 +10,7 @@ public interface TeacherQueryConstants {
     public static final String TEACHER_COLUMN_LOGIN = "teach_login";
     public static final String TEACHER_COLUMN_PASSWORD = "teach_pasword";
     public static final String TEACHER_COLUMN_EMAIL = "teach_email";
-    public static final String TEACHER_SELECT_BY_LOGIN_AND_PASSWORD = "SELECT * FROM teacher WHERE  teach_login = ? AND teach_pasword = ?";
+    public static final String TEACHER_SELECT_BY_EMAIL_AND_PASSWORD = "SELECT * FROM teacher WHERE  teach_email = ? AND teach_pasword = ?";
     public static final String TEACHER_SELECT_STUDENT_LIST_FOR_CURRENT_COURSE = "SELECT s.st_first_name, s.st_last_name, co.course_name \n" +
             "FROM course as co\n" +
             "JOIN teacher_course AS tc ON tc.course_id=co.course_id \n" +
@@ -20,9 +20,7 @@ public interface TeacherQueryConstants {
     public static final String TEACHER_UPDATE_MARK_FOR_STUDENT_FROM_CURRENT_COURSE = "UPDATE stud_course_mark\n" +
             "SET mark_id = (SELECT mark_id FROM mark WHERE mark_name = ?), comment=?\n" +
             "WHERE st_id=? AND course_id=?;";
-    public static final String TEACHER_SELECT_INACTIVE_COURSES_FOR_ACTIVATION = "SELECT co.course_name FROM course as co\n" +
-            "JOIN teacher_course AS tc ON tc.course_id=co.course_id\n" +
-            "WHERE co.course_status=0 AND tc.teacher_id=?;";
+
     public static final String TEACHER_UPDATE_COURSE_STATUS = "UPDATE course\n" +
             "SET course_status = ? \n" +
             "WHERE course_id=(SELECT course_id FROM teacher_course WHERE teacher_id=?);";

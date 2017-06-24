@@ -1,6 +1,7 @@
 package com.kpi.arkhipchuk.model.dao.jdbc;
 
 import com.kpi.arkhipchuk.model.dao.DaoTeacher;
+import com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants.CourseQueryConstants;
 import com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants.TeacherQueryConstants;
 import com.kpi.arkhipchuk.model.entity.Teacher;
 
@@ -17,7 +18,7 @@ import java.util.List;
 public class JdbcTeacherDao implements DaoTeacher{
 
     protected String getSelectQuery() {
-        return TeacherQueryConstants.TEACHER_SELECT_BY_LOGIN_AND_PASSWORD;
+        return TeacherQueryConstants.TEACHER_SELECT_BY_EMAIL_AND_PASSWORD;
     }
     protected String getSelectStudentsListForCurrentCourseQuery(){
         return TeacherQueryConstants.TEACHER_SELECT_STUDENT_LIST_FOR_CURRENT_COURSE;
@@ -26,7 +27,7 @@ public class JdbcTeacherDao implements DaoTeacher{
         return TeacherQueryConstants.TEACHER_UPDATE_MARK_FOR_STUDENT_FROM_CURRENT_COURSE;
     }
     protected String getSelectCourseForChangingStatus(){
-        return TeacherQueryConstants.TEACHER_SELECT_INACTIVE_COURSES_FOR_ACTIVATION;
+        return CourseQueryConstants.TEACHER_SELECT_INACTIVE_COURSES_FOR_ACTIVATION;
     }
     protected String getUpdateCourseStatusQuery(){
         return TeacherQueryConstants.TEACHER_UPDATE_COURSE_STATUS;
@@ -121,12 +122,12 @@ public class JdbcTeacherDao implements DaoTeacher{
     }
 
     @Override
-    public Teacher getTeacherByLogin(String login, String password) {
+    public Teacher getTeacherByEmail(String email, String password) {
         List<Teacher> list;
-        String sql = TeacherQueryConstants.TEACHER_SELECT_BY_LOGIN_AND_PASSWORD;
+        String sql = TeacherQueryConstants.TEACHER_SELECT_BY_EMAIL_AND_PASSWORD;
         try (Connection connection = JdbcDaoFactory.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, login);
+            statement.setString(1, email);
             statement.setString(2, password);
             ResultSet rs = statement.executeQuery();
             list = parseResultSet(rs);

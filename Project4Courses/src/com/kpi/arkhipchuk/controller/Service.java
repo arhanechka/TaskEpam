@@ -26,39 +26,44 @@ public class Service<T> {
         return instance;
     }
 
-    public Student checkStudent(String login, String password) {
+    public Student checkStudent(String email, String password) {
         DaoStudent studentDao = daoFactory.createStudentDao();
-        Student student = studentDao.getStudentByLogin(login, password);
+        Student student = studentDao.getStudentByEmail(email, password);
         return student;
     }
 
-    public Teacher checkTeacher(String login, String password) {
+    public Teacher checkTeacher(String email, String password) {
         DaoTeacher teacherDao = daoFactory.createTeacherDao();
-        Teacher teacher = teacherDao.getTeacherByLogin(login, password);
+        Teacher teacher = teacherDao.getTeacherByEmail(email, password);
         return teacher;
     }
 
-    public Boolean checkAndRegUser(String firstName, String lastName, String login, String password, String email) {
-        return true;
+    public Student checkAndRegUser(String firstName, String lastName, String login, String password, String email) {
+        DaoStudent studentDao = daoFactory.createStudentDao();
+        if (studentDao.getStudentByEmail(email, password)==null) {
+            return studentDao.getNewStudent(firstName, lastName, login, password, email);
+        }
+        return null;
     }
-//    public Teacher getTeacherById(int id) {
-//        DaoTeacher teacherDao = daoFactory.createTeacherDao();
-//        return teacherDao.find(id);
-//    }
-//
-//    public Student getStudentById(int id) {
-//        DaoStudent studentDao = daoFactory.createStudentDao();
-//        return studentDao.find(id);
-//    }
 
     public Course getCourseByStudentId(int id) {
         DaoCourse courseDao = daoFactory.createCourseDao();
         return courseDao.find(id);
     }
 
+    public void updateCourseStatus(String query, int... key) {
+        //Boolean ifCourseUpdated;
+        DaoCourse courseDao = daoFactory.createCourseDao();
+        courseDao.update(query, key);
+    }
+
     public List<Course> findListOfCourses(String query, int... keys) {
         DaoCourse courseDao = daoFactory.createCourseDao();
         return courseDao.findAll(query, keys);
+    }
+    public List<ArrayList<Object>> findListOfSpecificStrings(String query, int... id) {
+        DaoOptional daoOptional = daoFactory.createOptionalDao();
+        return daoOptional.findAll(query, id);
     }
 
     public Map<String, String> findListOfTwoStrings(String query, int... id) {
@@ -66,20 +71,13 @@ public class Service<T> {
         return courseDao.findMap(query, id);
     }
 
-    public Map<Course, List<Student>> findListOfCurrentCoursesForTeacher(int id) {
-        Map<Course, List<Student>> globalMap = new HashMap<>();
+    public List<Student> findListOfStudentForCourses(String query, int id) {
         DaoStudent studentDao = daoFactory.createStudentDao();
-        List<Course> currentCourseList = findListOfCourses(CourseQueryConstants.TEACHER_SELECT_CURRENT_COURSES, id);
-        if (currentCourseList==null) {
-            return null;
-        }
-        else {
-            for (Course course : currentCourseList) {
-                List<Student> studentList = studentDao.findAll(CourseQueryConstants.TEACHER_SELECT_LIST_OF_STUDENTS_FOR_CURRENT_COURSES, course.getId());
-                globalMap.put(course, studentList);
-            }
-        }
-        return globalMap;
-    }
+                return studentDao.findAll(query, id);
 
+            }
+
+    public void startNewCourse(String query, int... key){
+        DaoCourse courseDao = daoFactory.createCourseDao();
+    }
 }

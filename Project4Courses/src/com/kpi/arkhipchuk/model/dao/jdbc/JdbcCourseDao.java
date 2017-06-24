@@ -33,7 +33,7 @@ public class JdbcCourseDao implements DaoCourse {
     }
 
     protected String getInsertQueryForJoinToNewCourseStudent() {
-        return CourseQueryConstants.STUDENT_INSERT_FOR_JOIN_TO_NEW_COURSE;
+        return CourseQueryConstants.STUDENT_UPDATE_FOR_JOIN_TO_NEW_COURSE;
     }
 
     protected String getInsertQuery() {
@@ -97,6 +97,7 @@ public class JdbcCourseDao implements DaoCourse {
 
     }
 
+
     @Override
     public Course find(int id) {
         return null;
@@ -128,9 +129,8 @@ public class JdbcCourseDao implements DaoCourse {
     public Map<String, String> findMap(String query, int... key) {
         Map<String, String> result = new TreeMap<>();
         int[] keys = key;
-        String sql = query;
         try (Connection connection = JdbcDaoFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+             PreparedStatement statement = connection.prepareStatement(query)) {
             for (int i = 0; i < keys.length; i++) {
                 statement.setInt(i + 1, keys[i]);
             }
@@ -153,8 +153,24 @@ public class JdbcCourseDao implements DaoCourse {
         } catch (Exception e) {
             //   logger.log(Level.ERROR, null, e);
             throw new RuntimeException(e);
-        }return result;
+        }
+        return result;
     }
+
+    public void update(String query, int... key) {
+        int[] keys = key;
+        try (Connection connection = JdbcDaoFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            for (int i = 0; i < keys.length; i++) {
+                statement.setInt(i + 1, keys[i]);
+            }
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 
 

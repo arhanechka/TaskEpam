@@ -9,4 +9,5 @@ import java.util.Map;
  */
 public interface DaoCourse extends GenericDao <Course> {
     public Map<String, String> findMap(String query, int... id);
+    public void update(String query, int... id);
 }

@@ -17,41 +17,12 @@ import java.util.List;
 public class JdbcStudentDao implements DaoStudent {
 
     protected String getSelectQuery() {
-        return StudentQueryConstants.STUDENT_SELECT_BY_LOGIN_AND_PASSWORD;
+        return StudentQueryConstants.STUDENT_SELECT_BY_EMAIL_AND_PASSWORD;
     }
 
     protected String getInsertNewStudentQuery() {
         return StudentQueryConstants.STUDENT_INSERT_NEW_STUDENT;
     }
-
-//    @Override
-//    protected String getUpdateQuery() {
-//        return "UPDATE student SET first_name = ?, last_name = ?, login = ?, password = ?, email = ? WHERE id = ?";
-//    }
-//
-//    @Override
-//    protected String getDeleteQuery() {
-//        return "DELETE FROM student WHERE id = ?";
-//    }
-//
-//    @Override
-//    protected void prepareStatementForCreate(PreparedStatement statement, Student entity) throws SQLException {
-//        statement.setString(1, entity.getFirstName());
-//        statement.setString(2, entity.getLastName());
-//    }
-//
-//    @Override
-//    protected void prepareStatementForUpdate(PreparedStatement statement, Student entity) throws SQLException {
-//        statement.setString(1, entity.getFirstName());
-//        statement.setString(2, entity.getLastName());
-//        statement.setInt(3, entity.getId());
-//
-//    }
-//
-//    @Override
-//    protected void prepareStatementForDelete(PreparedStatement statement, Student entity) throws SQLException {
-//        statement.setInt(1, entity.getId());
-//    }
 
     protected List<Student> parseResultSet(ResultSet rs) throws SQLException {
         List<Student> res = new ArrayList<>();
@@ -75,17 +46,17 @@ public class JdbcStudentDao implements DaoStudent {
     /**
      * Retrun first Student object with equal first name and last name
      *
-     * @param login
+     * @param email
      * @param password
      * @return
      */
     @Override
-    public Student getStudentByLogin(String login, String password) {
+    public Student getStudentByEmail(String email, String password) {
         List<Student> list;
-        String sql = StudentQueryConstants.STUDENT_SELECT_BY_LOGIN_AND_PASSWORD;
+        String sql = StudentQueryConstants.STUDENT_SELECT_BY_EMAIL_AND_PASSWORD;
         try (Connection connection = JdbcDaoFactory.getConnection();
              PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, login);
+            statement.setString(1, email);
             statement.setString(2, password);
             ResultSet rs = statement.executeQuery();
             list = parseResultSet(rs);
@@ -97,6 +68,23 @@ public class JdbcStudentDao implements DaoStudent {
             //  Logger.getLogger(JdbcStudentDao.class.getName()).log(Level.ERROR, null, e);
             return null;
         }
+    }
+
+    @Override
+    public Student getNewStudent(String firstName, String lastName, String login, String password, String email) {
+        String sql = StudentQueryConstants.STUDENT_INSERT_NEW_STUDENT;
+        List<Student> list;
+        try (Connection connection = JdbcDaoFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, firstName);
+            statement.setString(2, lastName);
+            statement.setString(3, login);
+            statement.setString(4, password);
+            statement.setString(5, email);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }return getStudentByEmail(email,password);
     }
 
     @Override
