@@ -22,9 +22,9 @@ ${greeting}
         <c:forEach var="course" items="${currentCourseList}">
            <h4>${course.getKey().getName()}</h4>
             <c:forEach var="courseval" items="${currentCourseList.values()}">
-                <c:forEach var="coursest" items="${courseval}">
-                   <h5> ${coursest.getLastName()}
-                    ${coursest.getFirstName()}</h5>
+                <c:forEach var="coursist" items="${courseval}">
+                   <h5> ${coursist.getLastName()}
+                    ${coursist.getFirstName()}</h5>
                 </c:forEach>
             </c:forEach>
             </br>
