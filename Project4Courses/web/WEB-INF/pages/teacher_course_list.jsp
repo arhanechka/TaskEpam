@@ -7,16 +7,16 @@
 <div class="container-fluid">
 
     <div class="well">
-        <h1>Welcome, ${participant.getFirstName()} ${participant.getLastName()}!</h1>
+        <h1>${greeting}, ${participant.getFirstName()} ${participant.getLastName()}!</h1>
     </div>
     <div class="col-sm-6">
         <div class="table-responsive">
             <table class="table table-striped table-hover table-bordered">
-                <caption class="current_curs_caption">Current cources</caption>
+                <caption class="current_curs_caption">${current_cources}</caption>
                 <thead>
                 <tr>
-                    <th>Cource name</th>
-                    <th>Students list</th>
+                    <th>${cource_name}</th>
+                    <th>${students_list}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -25,7 +25,7 @@
                         <td>${course.getName()}</td>
                         <td>
                             <a href="./Controller?page=STUDENTS_LIST_FOR_CURRENT_COURSE&courseId=${course.getId()}">
-                                <button class="btn-info">Open</button>
+                                <button class="btn-info">${open}</button>
                                 </a>
                         </td>
                     </tr>
@@ -38,22 +38,22 @@
         <div class="col-sm-6">
             <div class="table-responsive">
                 <table class="table table-striped table-hover table-bordered">
-                    <caption class="available_curs_caption">Finished cources</caption>
+                    <caption class="available_curs_caption">${finished_cources}</caption>
                     <thead>
                     <tr>
-                        <th>Cource name</th>
-                        <th>History</th>
-                        <th>Start</th>
+                        <th>${cource_name}</th>
+                        <th>${history}</th>
+                        <th>${start}</th>
                     </tr>
                     </thead>
                     <tbody>
                     <c:forEach var="course" items="${inactiveCourseList}">
                         <tr>
                         <td>${course.getName()}</td>
-                        <td><a href="./Controller?page=COURSES_HISTORY&course=${course.getId()}&courseName=${course.getName()}">History</a></td>
+                        <td><a href="./Controller?page=COURSES_HISTORY&courseId=${course.getId()}&courseName=${course.getName()}">${history}</a></td>
                         <td>
                             <a href="./Controller?page=START_NEW_COURSE&courseId=${course.getId()}&courseName=${course.getName()}">
-                            <button class="btn-success">Start</button></a>
+                            <button class="btn-success">${start}</button></a>
                         </td>
                     </tr>
                     </c:forEach>

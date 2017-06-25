@@ -5,11 +5,11 @@
 <div class="container">
     <div class="jumbotron">
         <div class="page-header">
-            <h2>Something wrong!</h2>
+            <h2>${error_header}!</h2>
         </div>
         <p> ${message}</p>
         <a href="${backButton}">
-            <button class="btn-success">Back</button>
+            <button class="btn-success">${back}</button>
         </a>
     </div>
 

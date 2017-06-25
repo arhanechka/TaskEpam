@@ -8,9 +8,7 @@
 <div class="container-fluid">
 
     <div class="well">
-        <h1>History of ${currentCourse.getName()}</h1>
-        <%--<input type="hidden" name=${course.getName()} value="SET_STUDENT_MARK">--%>
-
+        <h1>${currentCourse.getName()}</h1>
     </div>
     <div class="row">
         <div class="col-sm-6">
@@ -18,9 +16,9 @@
                 <table class="table table-striped table-hover table-bordered">
                     <thead>
                     <tr>
-                        <th>List of students</th>
-                        <th>Mark</th>
-                        <th>Comment</th>
+                        <th>${students_list}</th>
+                        <th>${mark}</th>
+                        <th>${comment}</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -54,7 +52,7 @@
                                     <input type="text" name="comment" class="form-control">
                                 </td>
                                 <td>
-                                    <input type="submit" class="btn-info">
+                                    <input type="submit" value=${set_mark} class="btn-info">
                                 </td>
                         </form>
                         </tr>
@@ -64,11 +62,11 @@
 
                 </table>
                 <a href="./Controller?page=LIST_COURSE_TEACHER">
-                    <button class="btn-success">Back</button>
+                    <button class="btn-success">${back}</button>
                 </a>
 
                 <a href="./Controller?page=CLOSE_COURSE&studentListForCurrentCourse=${studentListForCurrentCourse}">
-                    <button class="btn-success">Close course</button>
+                    <button class="btn-success">${close_course}</button>
                 </a>
             </div>
         </div>

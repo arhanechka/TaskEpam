@@ -8,18 +8,18 @@
 <div class="container-fluid">
 
     <div class="well">
-        <h1>Welcome, ${participant.getFirstName()} ${participant.getLastName()}!</h1>
+        <h1>${greeting}, ${participant.getFirstName()} ${participant.getLastName()}!</h1>
     </div>
     <p class="page-header">
-    <h2>Your cources ...</h2>
+    <h2>${your_courses} ...</h2>
     <div class="row">
         <div class="col-sm-4">
             <div class="table-responsive">
                 <table class="table table-striped table-hover table-bordered">
-                    <caption class="current_curs_caption">Current cources</caption>
+                    <caption class="current_curs_caption">${current_cources}</caption>
                     <thead>
                     <tr>
-                        <th>Cource name</th>
+                        <th>${cource_name}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -37,10 +37,10 @@
             <div class="table-responsive ">
                 <form action=action="./Controller" method="GET">
                 <table class="table table-striped table-hover table-bordered">
-                    <caption class="available_curs_caption">Available cources</caption>
+                    <caption class="available_curs_caption">${available_cources}</caption>
                     <thead>
                     <tr>
-                        <th>Cource name</th><th></th>
+                        <th>${cource_name}</th><th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -48,7 +48,7 @@
                         <tr>
                             <td>${course1.getName()}</td>
                             <td><a href="./Controller?page=JOIN_NEW_COURSE_LIST&courseId=${course1.getId()}&courseName=${course1.getName()}">
-                                <input type="button" value="Join"></a></td>
+                                <input type="button" value=${join}></a></td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -60,11 +60,11 @@
         <div class="col-sm-4">
             <div class="table-responsive ">
                 <table class="table table-striped table-hover table-bordered">
-                    <caption class="finished_curs_caption">Finished cources</caption>
+                    <caption class="finished_curs_caption">${finished_cources}</caption>
                     <thead>
                     <tr>
-                        <th>Cource name</th>
-                        <th>Marks</th>
+                        <th>${cource_name}</th>
+                        <th>${mark}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -76,6 +76,7 @@
                 </table>
             </div>
         </div>
+
     </div>
 </div>
 </body>

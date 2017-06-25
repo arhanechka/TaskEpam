@@ -20,46 +20,7 @@ import java.util.TreeMap;
  */
 public class JdbcCourseDao implements DaoCourse {
 
-    protected String getCurrentCoursesQueryStudent() {
-        return CourseQueryConstants.STUDENT_SELECT_CURRENT_COURSES;
-    }
-
-    protected String getCoursesForJoinQueryStudent() {
-        return CourseQueryConstants.STUDENT_SELECT_ACTUAL_COURSES_FOR_JOIN;
-    }
-
-    protected String getFinishedCoursesQueryStudent() {
-        return CourseQueryConstants.STUDENT_SELECT_FINISHED_COURSES;
-    }
-
-    protected String getInsertQueryForJoinToNewCourseStudent() {
-        return CourseQueryConstants.STUDENT_UPDATE_FOR_JOIN_TO_NEW_COURSE;
-    }
-
-    protected String getInsertQuery() {
-        return "INSERT INTO course (name, status) VALUES (?, ?)";
-    }
-
-
-    //    protected void prepareStatementForCreate(PreparedStatement statement, Course entity) throws SQLException {
-//        statement.setString(1, entity.getName());
-//        statement.setInt(2, entity.getStatus());
-//
-//    }
-//
-//    @Override
-//    protected void prepareStatementForUpdate(PreparedStatement statement, Course entity) throws SQLException {
-//        statement.setString(1, entity.getName());
-//        statement.setInt(3, entity.getStatus());
-//        statement.setInt(4, entity.getId());
-//    }
-//
-//    @Override
-//    protected void prepareStatementForDelete(PreparedStatement statement, Course entity) throws SQLException {
-//        statement.setInt(1, entity.getId());
-//    }
-//
-    protected List<Course> parseResultSet(ResultSet rs) throws SQLException {
+          protected List<Course> parseResultSet(ResultSet rs) throws SQLException {
         List<Course> res = new ArrayList<>();
         while (rs.next()) {
             try {

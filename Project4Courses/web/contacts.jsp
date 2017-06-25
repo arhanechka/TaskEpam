@@ -4,11 +4,11 @@
 <%@ include file="/WEB-INF/view/jspf/header.jspf"%>
 <div class="container">
     <div class="jumbotron">
-        <p>Contacts:</p>
-        <p>Anna Arkhipchuk</p>
-        <p>Kiev, Ukraine</p>
-        <p>Phone: 032-322-233-32</p>
-        <p><a href="mailto:arhanechka@gmail.com">Ask your question by email</a></p>
+        <p>${contacts}:</p>
+        <p>${author_name}</p>
+        <p>${author_localisation}</p>
+        <p>${author_phone}</p>
+        <p><a href="mailto:arhanechka@gmail.com">${ask_you_question}</a></p>
 
     </div>
 </div>

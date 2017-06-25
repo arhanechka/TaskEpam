@@ -6,7 +6,7 @@
         <div class="col-md-12">
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="#">Elective System</a>
+                    <a class="navbar-brand" href="#">${menu_name}</a>
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                             aria-expanded="false" aria-controls="navbar">
                         <span class="sr-only">Toggle navigation</span>
@@ -21,13 +21,13 @@
                             <li class="active">
                                 <c:choose>
                                  <c:when test="${participant==null}">
-                                     <a href="/index.jsp">Home</a>
+                                     <a href="/index_loc.jsp">${menu_home}</a>
                                  </c:when>
-                                    <c:otherwise> <a href="/logged_index.jsp">Home</a></c:otherwise>
+                                    <c:otherwise> <a href="/logged_index.jsp">${menu_home}</a></c:otherwise>
                                 </c:choose></li>
-                            <li><a href="./about.jsp">About</a></li>
-                            <li><a href="./contacts.jsp">Contact</a></li>
-                            <li><a href="./contacts.jsp">Українська</a></li>
+                            <li><a href="./about.jsp">${menu_about}</a></li>
+                            <li><a href="./contacts.jsp">${menu_contact}</a></li>
+                            <li><a href="./Controller?page=LOCALE_CHOOSING&locale=${locale_setup}">${menu_language}</a></li>
 
                         </ul>
                     </div>

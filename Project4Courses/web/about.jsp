@@ -5,9 +5,9 @@
 <div class="container">
     <div class="jumbotron">
         <div class="page-header">
-            <h2>About our Elective System</h2>
+            <h2>${about}</h2>
         </div>
-        <p>This page was created as a training project for Epam company after a graduation of course of Java-web programming</p>
+        <p>${about_description}</p>
     </div>
     </div>
 </body>

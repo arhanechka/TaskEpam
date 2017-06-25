@@ -7,7 +7,7 @@
 <div class="container-fluid">
 
     <div class="well">
-        <h1>You are logged as ${participant.getFirstName()} ${participant.getLastName()}!</h1>
+        <h1>${login_identificator} ${participant.getFirstName()} ${participant.getLastName()}!</h1>
     </div>
     <div class="well well-lg col-sm-6 col-sm-offset-3 col-xs-6 col-xs-offset-3 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
         <div class="row">
@@ -21,11 +21,11 @@
                     <input type="hidden" name="page" value="LIST_COURSE_TEACHER">
                         </c:otherwise>
                     </c:choose>
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">My page</button>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">${my_page}</button>
                 </form>
                 <form action="./Controller" method="POST" class="form-signin">
                     <input type="hidden" name="page" value="EXIT">
-                    <button class="btn btn-lg btn-primary btn-block" type="submit">Exit</button>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">${exit}</button>
                 </form>
             </div>
         </div>

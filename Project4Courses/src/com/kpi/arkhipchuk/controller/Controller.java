@@ -4,6 +4,7 @@ import com.kpi.arkhipchuk.controller.command.*;
 import com.kpi.arkhipchuk.view.AddressConstants;
 import com.kpi.arkhipchuk.view.ErrorMessages;
 
+import javax.naming.Context;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -37,6 +38,7 @@ public class Controller extends HttpServlet {
         commands.put("SET_STUDENT_MARK", new SetStudentMark());
         commands.put("EXIT", new Exit());
         commands.put("CLOSE_COURSE", new CloseCourse());
+        commands.put("LOCALE_CHOOSING", new LocaleChoosing());
 
     }
 
@@ -52,7 +54,7 @@ public class Controller extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-       // LocaleController localeController = new LocaleController();
+
         String page = request.getParameter("page");
         try {
             commands.get(page).execute(request, response);
