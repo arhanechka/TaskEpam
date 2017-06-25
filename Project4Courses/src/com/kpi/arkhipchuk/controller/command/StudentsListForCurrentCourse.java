@@ -25,6 +25,10 @@ public class StudentsListForCurrentCourse extends Command {
            currentCourse = service.getCourseById(CourseQueryConstants.SELECT_COURSE, courseId);
            session.setAttribute("currentCourse", currentCourse);
        }
+        else if ((currentCourse = (Course) session.getAttribute("currentCourse")).getId()!=Integer.parseInt(request.getParameter("courseId"))){
+            currentCourse = service.getCourseById(CourseQueryConstants.SELECT_COURSE,Integer.parseInt(request.getParameter("courseId")));
+            session.setAttribute("currentCourse", currentCourse);
+        }
        else {
            currentCourse = (Course) session.getAttribute("currentCourse");
        }
