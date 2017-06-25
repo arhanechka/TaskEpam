@@ -11,6 +11,6 @@ public interface GenericDao<T> {
     public void insert (T entity);
     public void delete (T entity);
 
-    T find(int id);
+    T find(String query, int id);
     List<T> findAll(String query, int... key);
 }

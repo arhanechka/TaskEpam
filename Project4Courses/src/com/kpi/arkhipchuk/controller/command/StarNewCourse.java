@@ -22,7 +22,7 @@ public class StarNewCourse extends Command {
         int courseId = Integer.parseInt(request.getParameter("courseId"));
         String courseName = request.getParameter("courseName");
         Teacher currentTeacher = (Teacher) session.getAttribute("participant");
-        service.updateCourseStatus(CourseQueryConstants.TEACHER_UPDATE_COURSES_FOR_ACTIVATION, courseId);
+        service.updateCourseStatus(CourseQueryConstants.TEACHER_UPDATE_COURSES_FOR_ACTIVATION, 1, courseId);
         List <Course> currentCourseList = service.findListOfCourses(CourseQueryConstants.TEACHER_SELECT_CURRENT_COURSES, currentTeacher.getId());
         request.setAttribute("currentCourseList", currentCourseList);
         List <Course> inactiveCourseList = service.findListOfCourses(CourseQueryConstants.TEACHER_SELECT_INACTIVE_COURSES_FOR_ACTIVATION, currentTeacher.getId());

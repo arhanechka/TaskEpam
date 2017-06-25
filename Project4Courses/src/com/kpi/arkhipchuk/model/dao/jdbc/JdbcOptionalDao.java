@@ -1,6 +1,7 @@
 package com.kpi.arkhipchuk.model.dao.jdbc;
 
 import com.kpi.arkhipchuk.model.dao.DaoOptional;
+import com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants.StudentQueryConstants;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -34,7 +35,7 @@ public class JdbcOptionalDao implements DaoOptional {
     }
 
     @Override
-    public ArrayList<Object> find(int id) {
+    public ArrayList<Object> find(String query, int id) {
         return null;
     }
 
@@ -44,15 +45,16 @@ public class JdbcOptionalDao implements DaoOptional {
         while (rs.next()) {
             try {
                 ArrayList<Object> temp = new ArrayList<>();
-                for (int i=0; i<columns;i++){
-                temp.add(rs.getObject(i+1));}
+                for (int i = 0; i < columns; i++) {
+                    temp.add(rs.getObject(i + 1));
+                }
                 res.add(temp);
-        } catch(SQLException ex){
-            //  Logger.getLogger(JdbcStudentDao.class.getName()).log(Level.ERROR, null, ex);
+            } catch (SQLException ex) {
+                //  Logger.getLogger(JdbcStudentDao.class.getName()).log(Level.ERROR, null, ex);
+            }
         }
-    }
         return res;
-}
+    }
 
     @Override
     public List<ArrayList<Object>> findAll(String query, int... key) {
@@ -78,5 +80,20 @@ public class JdbcOptionalDao implements DaoOptional {
 
     }
 
+    @Override
+    public void updateMark(String mark, String comment, int studentId, int courseId) {
+        String sql = StudentQueryConstants.STUDENT_UPDATE_MARK_AND_COMMENT;
+        try (Connection connection = JdbcDaoFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, mark);
+            statement.setString(2, comment);
+            statement.setInt(3, studentId);
+            statement.setInt(4, courseId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+
+    }
 }

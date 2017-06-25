@@ -2,6 +2,7 @@ package com.kpi.arkhipchuk.controller;
 
 import com.kpi.arkhipchuk.controller.command.*;
 import com.kpi.arkhipchuk.view.AddressConstants;
+import com.kpi.arkhipchuk.view.ErrorMessages;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -35,6 +36,7 @@ public class Controller extends HttpServlet {
         commands.put("STUDENTS_LIST_FOR_CURRENT_COURSE", new StudentsListForCurrentCourse());
         commands.put("SET_STUDENT_MARK", new SetStudentMark());
         commands.put("EXIT", new Exit());
+        commands.put("CLOSE_COURSE", new CloseCourse());
 
     }
 
@@ -50,11 +52,13 @@ public class Controller extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        LocaleController localeController = new LocaleController();
+       // LocaleController localeController = new LocaleController();
         String page = request.getParameter("page");
         try {
             commands.get(page).execute(request, response);
         } catch (RuntimeException ex) {
+            request.setAttribute("message", ErrorMessages.COMMON_ERROR);
+            request.setAttribute("backButton", "/index.jsp");
             request.getRequestDispatcher(AddressConstants.ERROR_PAGE).forward(request, response);
         }
     }

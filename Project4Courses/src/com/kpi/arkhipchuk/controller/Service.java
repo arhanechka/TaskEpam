@@ -46,9 +46,13 @@ public class Service<T> {
         return null;
     }
 
-    public Course getCourseByStudentId(int id) {
+    public Course getCourseByStudentId(String query,int id) {
         DaoCourse courseDao = daoFactory.createCourseDao();
-        return courseDao.find(id);
+        return courseDao.find(query,id);
+    }
+    public Course getCourseById(String query,int id) {
+        DaoCourse courseDao = daoFactory.createCourseDao();
+        return courseDao.find(query,id);
     }
 
     public void updateCourseStatus(String query, int... key) {
@@ -65,6 +69,12 @@ public class Service<T> {
         DaoOptional daoOptional = daoFactory.createOptionalDao();
         return daoOptional.findAll(query, id);
     }
+
+    public void setStudentMark(String mark, String comment, int studentId, int courseId){
+       DaoOptional daoOptional  = daoFactory.createOptionalDao();
+        daoOptional.updateMark(mark, comment, studentId, courseId);
+    }
+
 
     public Map<String, String> findListOfTwoStrings(String query, int... id) {
         DaoCourse courseDao = daoFactory.createCourseDao();

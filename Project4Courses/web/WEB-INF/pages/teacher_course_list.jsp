@@ -24,7 +24,7 @@
                     <tr>
                         <td>${course.getName()}</td>
                         <td>
-                            <a href="./Controller?page=STUDENTS_LIST_FOR_CURRENT_COURSE&courseId=${course.getId()}&courseName=${course.getName()}">
+                            <a href="./Controller?page=STUDENTS_LIST_FOR_CURRENT_COURSE&courseId=${course.getId()}">
                                 <button class="btn-info">Open</button>
                                 </a>
                         </td>
@@ -50,7 +50,7 @@
                     <c:forEach var="course" items="${inactiveCourseList}">
                         <tr>
                         <td>${course.getName()}</td>
-                        <td><a href="./Controller?page=COURSES_HISTORY&courseId=${course.getId()}&courseName=${course.getName()}">History</a></td>
+                        <td><a href="./Controller?page=COURSES_HISTORY&course=${course.getId()}&courseName=${course.getName()}">History</a></td>
                         <td>
                             <a href="./Controller?page=START_NEW_COURSE&courseId=${course.getId()}&courseName=${course.getName()}">
                             <button class="btn-success">Start</button></a>

@@ -7,6 +7,8 @@ public interface CourseQueryConstants {
     public static final String COURSE_COLUMN_ID = "course_id";
     public static final String COURSE_COLUMN_NAME = "course_name";
     public static final String COURSE_COLUMN_STATUS = "course_status";
+    public static final String SELECT_COURSE = "SELECT * FROM course\n" +
+            "WHERE course_id = ?;";
     public static final String STUDENT_SELECT_CURRENT_COURSES = "SELECT * FROM course c \n" +
             "JOIN stud_course_mark AS scm ON scm.course_id=c.course_id \n" +
             "JOIN student AS s ON s.st_id=scm.st_id WHERE scm.st_id=s.st_id AND isnull(scm.mark_id) AND s.st_id=?;";
@@ -30,6 +32,6 @@ public interface CourseQueryConstants {
             "JOIN teacher_course AS tc ON tc.course_id=co.course_id\n" +
             "WHERE co.course_status=0 AND tc.teacher_id=?;";
     public static final String TEACHER_UPDATE_COURSES_FOR_ACTIVATION = "UPDATE course as co\n" +
-            "SET co.course_status=1\n" +
+            "SET co.course_status=?\n" +
             "WHERE co.course_id=?;";
 }

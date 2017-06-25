@@ -9,4 +9,5 @@ public interface DaoStudent extends GenericDao <Student>{
     Student getStudentByEmail(String email, String password);
     Student getNewStudent(String firstName, String lastName, String login, String password, String email);
 
+
 }

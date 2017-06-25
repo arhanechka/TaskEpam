@@ -107,7 +107,7 @@ public class JdbcTeacherDao implements DaoTeacher{
     }
 
     @Override
-    public Teacher find(int id) {
+    public Teacher find(String query,int id) {
         return null;
     }
 

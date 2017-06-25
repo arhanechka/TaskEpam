@@ -25,12 +25,12 @@ public class JoinNewCourseList extends Command {
         Student currentStudent = (Student)session.getAttribute("participant");
         int currentStudentId = currentStudent.getId();
         service.updateCourseStatus(CourseQueryConstants.STUDENT_UPDATE_FOR_JOIN_TO_NEW_COURSE, currentStudentId,courseId);
-//        List<Course> currentCourseList = service.findListOfCourses(CourseQueryConstants.STUDENT_SELECT_CURRENT_COURSES, currentStudent.getId());
-//        request.setAttribute("currentCourseList1", currentCourseList);
-//        List<Course> accessableCourseList = service.findListOfCourses(CourseQueryConstants.STUDENT_SELECT_ACTUAL_COURSES_FOR_JOIN, currentStudent.getId(),1);
-//        request.setAttribute("accessableCourseList1", accessableCourseList);
-//        Map<String,Mark> finishedCourseList = service.findListOfTwoStrings(CourseQueryConstants.STUDENT_SELECT_FINISHED_COURSES, currentStudent.getId());
-//        request.setAttribute("finishedCourseList1", finishedCourseList);
+        List<Course> currentCourseList = service.findListOfCourses(CourseQueryConstants.STUDENT_SELECT_CURRENT_COURSES, currentStudent.getId());
+        request.setAttribute("currentCourseList1", currentCourseList);
+        List<Course> accessableCourseList = service.findListOfCourses(CourseQueryConstants.STUDENT_SELECT_ACTUAL_COURSES_FOR_JOIN, currentStudent.getId(),1);
+        request.setAttribute("accessableCourseList1", accessableCourseList);
+        Map<String,Mark> finishedCourseList = service.findListOfTwoStrings(CourseQueryConstants.STUDENT_SELECT_FINISHED_COURSES, currentStudent.getId());
+        request.setAttribute("finishedCourseList1", finishedCourseList);
         //new StudentCourseList().execute(request, response);
        request.getServletContext().getRequestDispatcher(AddressConstants.STUDENT_COURSE_LIST).forward(request, response);
     }

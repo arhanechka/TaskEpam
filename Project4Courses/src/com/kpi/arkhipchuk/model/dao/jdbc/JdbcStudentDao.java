@@ -87,6 +87,7 @@ public class JdbcStudentDao implements DaoStudent {
         }return getStudentByEmail(email,password);
     }
 
+
     @Override
     public void create(Student entity) {
 
@@ -108,7 +109,7 @@ public class JdbcStudentDao implements DaoStudent {
     }
 
     @Override
-    public Student find(int id) {
+    public Student find(String query,int id) {
         return null;
     }
 

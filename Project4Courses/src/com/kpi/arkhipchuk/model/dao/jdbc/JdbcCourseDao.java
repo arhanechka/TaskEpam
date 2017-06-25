@@ -99,8 +99,24 @@ public class JdbcCourseDao implements DaoCourse {
 
 
     @Override
-    public Course find(int id) {
-        return null;
+    public Course find(String query, int id) {
+        List<Course> list;
+        try (Connection connection = JdbcDaoFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1,id);
+            ResultSet rs = statement.executeQuery();
+            list = parseResultSet(rs);
+            if (list == null || list.isEmpty()) {
+                return null;
+            }
+
+            return list.get(0);
+
+    } catch (Exception e) {
+        //   logger.log(Level.ERROR, null, e);
+        throw new RuntimeException(e);
+    }
+
     }
 
     @Override
