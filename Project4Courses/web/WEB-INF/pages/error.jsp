@@ -8,7 +8,7 @@
             <h2>Something wrong!</h2>
         </div>
         <p> ${message}</p>
-        <a href="./Controller?page=${backButton}&courseId=${courseId}&courseName=${courseName}">
+        <a href="${backButton}">
             <button class="btn-success">Back</button>
         </a>
     </div>

@@ -33,7 +33,7 @@ public class CloseCourse extends Command {
         }
         else{
             request.setAttribute("message", ErrorMessages.CLOSE_COURSE_ERROR);
-            request.setAttribute("backButton", "STUDENTS_LIST_FOR_CURRENT_COURSE");
+            request.setAttribute("backButton", "./Controller?page=STUDENTS_LIST_FOR_CURRENT_COURSE&courseId="+currentCourse.getId()+"&courseName="+currentCourse.getName());
             request.getRequestDispatcher(AddressConstants.ERROR_PAGE).forward(request,response);
         }
 
