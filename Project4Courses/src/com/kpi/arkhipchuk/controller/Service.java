@@ -1,11 +1,14 @@
 package com.kpi.arkhipchuk.controller;
 
+import com.kpi.arkhipchuk.model.UserDataChecking;
 import com.kpi.arkhipchuk.model.dao.*;
 import com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants.CourseQueryConstants;
+import com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants.StudentQueryConstants;
 import com.kpi.arkhipchuk.model.entity.Course;
 import com.kpi.arkhipchuk.model.entity.Mark;
 import com.kpi.arkhipchuk.model.entity.Student;
 import com.kpi.arkhipchuk.model.entity.Teacher;
+import com.kpi.arkhipchuk.view.RegExpressions;
 
 import java.util.*;
 
@@ -39,11 +42,21 @@ public class Service<T> {
     }
 
     public Student checkAndRegUser(String firstName, String lastName, String login, String password, String email) {
+
         DaoStudent studentDao = daoFactory.createStudentDao();
-        if (studentDao.getStudentByEmail(email, password)==null) {
+        if (!studentDao.ifStudentExist(StudentQueryConstants.STUDENT_SELECT_BY_EMAIL, email)) {
             return studentDao.getNewStudent(firstName, lastName, login, password, email);
         }
         return null;
+    }
+
+    public void createNewCourse(String query, String courseName){
+        DaoCourse courseDao = daoFactory.createCourseDao();
+        courseDao.createCourseByName(query,courseName);
+    }
+    public void setCourseToTeacher(String query, String courseName, int teacherId){
+        DaoCourse courseDao = daoFactory.createCourseDao();
+        courseDao.setCourseForTeacher(query, courseName, teacherId);
     }
 
     public Course getCourseByStudentId(String query,int id) {

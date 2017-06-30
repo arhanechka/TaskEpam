@@ -33,7 +33,7 @@ public class JdbcDaoFactory extends DaoFactory {
         try{
             return dataSource.getConnection();
         }catch (Exception e) {
-           // logger.log(Level.ERROR, null, e);
+            // logger.log(Level.ERROR, null, e);
             throw new RuntimeException(e);
         }
     }

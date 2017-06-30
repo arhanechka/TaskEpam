@@ -3,7 +3,7 @@ package com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants;
 /**
  * Created by Anya on 11.06.2017.
  */
-public interface TeacherQueryConstants {
+public final class TeacherQueryConstants {
     public static final String TEACHER_COLUMN_ID = "teach_id";
     public static final String TEACHER_COLUMN_FIRST_NAME = "teach_first_name";
     public static final String TEACHER_COLUMN_LAST_NAME = "teach_last_name";

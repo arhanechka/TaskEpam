@@ -35,7 +35,7 @@
 
         <div class="col-sm-4">
             <div class="table-responsive ">
-                <form action=action="./Controller" method="GET">
+                <form action="./Controller" method="GET">
                 <table class="table table-striped table-hover table-bordered">
                     <caption class="available_curs_caption">${available_cources}</caption>
                     <thead>

@@ -3,7 +3,7 @@ package com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants;
 /**
  * Created by Anya on 11.06.2017.
  */
-public interface CourseQueryConstants {
+public final class CourseQueryConstants {
     public static final String COURSE_COLUMN_ID = "course_id";
     public static final String COURSE_COLUMN_NAME = "course_name";
     public static final String COURSE_COLUMN_STATUS = "course_status";
@@ -34,4 +34,6 @@ public interface CourseQueryConstants {
     public static final String TEACHER_UPDATE_COURSES_FOR_ACTIVATION = "UPDATE course as co\n" +
             "SET co.course_status=?\n" +
             "WHERE co.course_id=?;";
+    public static final String CREATE_COURSE_BY_NAME = "INSERT INTO course (course_name, course_status)\n" +
+            "VALUES (?, 0);";
 }

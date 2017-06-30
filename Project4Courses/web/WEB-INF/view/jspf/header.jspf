@@ -21,7 +21,7 @@
                             <li class="active">
                                 <c:choose>
                                  <c:when test="${participant==null}">
-                                     <a href="/index_loc.jsp">${menu_home}</a>
+                                     <a href="/index_localed.jsp">${menu_home}</a>
                                  </c:when>
                                     <c:otherwise> <a href="/logged_index.jsp">${menu_home}</a></c:otherwise>
                                 </c:choose></li>

@@ -1,10 +1,10 @@
 package com.kpi.arkhipchuk.model.dao.jdbc;
 
+import com.kpi.arkhipchuk.controller.command.CloseCourse;
 import com.kpi.arkhipchuk.model.dao.DaoCourse;
 import com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants.CourseQueryConstants;
 import com.kpi.arkhipchuk.model.entity.Course;
 import com.kpi.arkhipchuk.model.entity.Mark;
-import org.apache.log4j.Level;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,7 +20,7 @@ import java.util.TreeMap;
  */
 public class JdbcCourseDao implements DaoCourse {
 
-          protected List<Course> parseResultSet(ResultSet rs) throws SQLException {
+        protected List<Course> parseResultSet(ResultSet rs) throws SQLException {
         List<Course> res = new ArrayList<>();
         while (rs.next()) {
             try {
@@ -36,11 +36,34 @@ public class JdbcCourseDao implements DaoCourse {
         }
         return res;
     }
+    @Override
+    public void createCourseByName(String query, String courseName){
+        try (Connection connection = JdbcDaoFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1,courseName);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            //   logger.log(Level.ERROR, null, e);
+            throw new RuntimeException(e);
+        }
 
+    }
+    @Override
+    public void setCourseForTeacher(String query, String courseName, int teacherId){
+        try (Connection connection = JdbcDaoFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1,courseName);
+            statement.setInt(2,teacherId);
+            statement.executeUpdate();
+        } catch (Exception e) {
+           //    logger.info("Something wrong");
+            throw new RuntimeException(e);
+        }
+
+    }
 
     @Override
     public void create(Course entity) {
-
     }
 
     @Override

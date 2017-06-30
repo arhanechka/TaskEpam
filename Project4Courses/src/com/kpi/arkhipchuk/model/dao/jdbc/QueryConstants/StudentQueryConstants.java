@@ -3,7 +3,7 @@ package com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants;
 /**
  * Created by Anya on 11.06.2017.
  */
-public interface StudentQueryConstants {
+public final class StudentQueryConstants {
     public static final String STUDENT_COLUMN_ID = "st_id";
     public static final String STUDENT_COLUMN_FIRST_NAME = "st_first_name";
     public static final String STUDENT_COLUMN_LAST_NAME = "st_last_name";
@@ -11,6 +11,7 @@ public interface StudentQueryConstants {
     public static final String STUDENT_COLUMN_PASSWORD = "st_password";
     public static final String STUDENT_COLUMN_EMAIL = "st_email";
     public static final String STUDENT_SELECT_BY_EMAIL_AND_PASSWORD = "SELECT * FROM student WHERE st_email = ? AND st_password = ?";
+    public static final String STUDENT_SELECT_BY_EMAIL = "SELECT * FROM student WHERE st_email = ?";
     public static final String STUDENT_UPDATE_MARK_AND_COMMENT = "UPDATE stud_course_mark\n" +
             "SET mark_id = (SELECT mark_id FROM mark WHERE mark_name = ?), comment=?\n" +
             "WHERE st_id=? AND course_id=?;";

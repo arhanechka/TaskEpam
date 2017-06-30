@@ -14,25 +14,22 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by Anya on 07.06.2017.
+ * Created by Anya on 26.06.2017.
  */
-public class TeacherCourseList extends Command {
+public class CreateNewCourse extends Command {
+    public static final String PARAM_NEW_COURSE_NAME = "newCourseName";
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        Teacher currentTeacher;
-        if (session.getAttribute(RequestConstants.PARAM_PARTICIPANT) == null) {
-            String email = request.getParameter(RequestConstants.PARAM_EMAIL);
-            String password = request.getParameter(RequestConstants.PARAM_PASSWORD);
-            currentTeacher = service.checkTeacher(email, password);
-            session.setAttribute("participant", currentTeacher);
-        } else {
-            currentTeacher = (Teacher) session.getAttribute(RequestConstants.PARAM_PARTICIPANT);
-        }
+        String courseName = request.getParameter(PARAM_NEW_COURSE_NAME);
+        service.createNewCourse(CourseQueryConstants.CREATE_COURSE_BY_NAME, courseName);
+        Teacher currentTeacher = (Teacher) session.getAttribute(RequestConstants.PARAM_PARTICIPANT);
         List<Course> currentCourseList = service.findListOfCourses(CourseQueryConstants.TEACHER_SELECT_CURRENT_COURSES, currentTeacher.getId());
         request.setAttribute("currentCourseList", currentCourseList);
         List<Course> inactiveCourseList = service.findListOfCourses(CourseQueryConstants.TEACHER_SELECT_INACTIVE_COURSES_FOR_ACTIVATION, currentTeacher.getId());
         request.setAttribute("inactiveCourseList", inactiveCourseList);
         request.getServletContext().getRequestDispatcher(AddressConstants.TEACHER_COURSE_LIST).forward(request, response);
+
     }
 }

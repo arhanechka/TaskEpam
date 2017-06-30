@@ -72,10 +72,10 @@ public class JdbcStudentDao implements DaoStudent {
 
     @Override
     public Student getNewStudent(String firstName, String lastName, String login, String password, String email) {
-        String sql = StudentQueryConstants.STUDENT_INSERT_NEW_STUDENT;
+        String sqlInsert = StudentQueryConstants.STUDENT_INSERT_NEW_STUDENT;
         List<Student> list;
         try (Connection connection = JdbcDaoFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+             PreparedStatement statement = connection.prepareStatement(sqlInsert)) {
             statement.setString(1, firstName);
             statement.setString(2, lastName);
             statement.setString(3, login);
@@ -117,9 +117,8 @@ public class JdbcStudentDao implements DaoStudent {
     public List<Student> findAll(String query, int... key) {
         List<Student> list;
         int[] keys = key;
-        String sql = query;
         try (Connection connection = JdbcDaoFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+             PreparedStatement statement = connection.prepareStatement(query)) {
             for (int i = 0; i < keys.length; i++) {
                 statement.setInt(i + 1, keys[i]);
             }
@@ -135,6 +134,18 @@ public class JdbcStudentDao implements DaoStudent {
             throw new RuntimeException(e);
         }
     }
+    public Boolean ifStudentExist(String query, String email){
+        try (Connection connection = JdbcDaoFactory.getConnection();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+                statement.setString(1,email);
+            ResultSet rs = statement.executeQuery();
+            if (rs!=null)
+            return true;
+        } catch (Exception e) {
+            //   logger.log(Level.ERROR, null, e);
+            throw new RuntimeException(e);
+        }
+    return false;}
     }
 
 

@@ -4,6 +4,7 @@ import com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants.CourseQueryConstants;
 import com.kpi.arkhipchuk.model.entity.Course;
 import com.kpi.arkhipchuk.model.entity.Student;
 import com.kpi.arkhipchuk.view.AddressConstants;
+import com.kpi.arkhipchuk.view.RequestConstants;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -20,18 +21,16 @@ public class StudentsListForCurrentCourse extends Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         Course currentCourse;
-       if (session.getAttribute("currentCourse")==null){
-           int courseId=Integer.parseInt(request.getParameter("courseId"));
-           currentCourse = service.getCourseById(CourseQueryConstants.SELECT_COURSE, courseId);
-           session.setAttribute("currentCourse", currentCourse);
-       }
-        else if ((currentCourse = (Course) session.getAttribute("currentCourse")).getId()!=Integer.parseInt(request.getParameter("courseId"))){
-            currentCourse = service.getCourseById(CourseQueryConstants.SELECT_COURSE,Integer.parseInt(request.getParameter("courseId")));
+        if (session.getAttribute(RequestConstants.PARAM_CURRENT_COURSE) == null) {
+            int courseId = Integer.parseInt(request.getParameter(RequestConstants.PARAM_COURSE_ID));
+            currentCourse = service.getCourseById(CourseQueryConstants.SELECT_COURSE, courseId);
             session.setAttribute("currentCourse", currentCourse);
+        } else if ((currentCourse = (Course) session.getAttribute(RequestConstants.PARAM_CURRENT_COURSE)).getId() != Integer.parseInt(request.getParameter(RequestConstants.PARAM_COURSE_ID))) {
+            currentCourse = service.getCourseById(CourseQueryConstants.SELECT_COURSE, Integer.parseInt(request.getParameter(RequestConstants.PARAM_COURSE_ID)));
+            session.setAttribute("currentCourse", currentCourse);
+        } else {
+            currentCourse = (Course) session.getAttribute(RequestConstants.PARAM_CURRENT_COURSE);
         }
-       else {
-           currentCourse = (Course) session.getAttribute("currentCourse");
-       }
 
         List<Student> studentListForCurrentCourse = service.findListOfStudentForCourses(CourseQueryConstants.TEACHER_SELECT_LIST_OF_STUDENTS_FOR_CURRENT_COURSES, currentCourse.getId());
         request.setAttribute("studentListForCurrentCourse", studentListForCurrentCourse);

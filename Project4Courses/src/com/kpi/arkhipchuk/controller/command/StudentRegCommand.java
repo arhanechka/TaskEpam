@@ -13,8 +13,6 @@ import java.io.IOException;
 public class StudentRegCommand extends Command {
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         request.getServletContext().getRequestDispatcher(AddressConstants.STUDENT_REG_PAGE).forward(request, response);
-
     }
 }
