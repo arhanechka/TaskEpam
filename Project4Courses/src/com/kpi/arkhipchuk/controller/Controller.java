@@ -3,12 +3,6 @@ package com.kpi.arkhipchuk.controller;
 import com.kpi.arkhipchuk.controller.command.*;
 import com.kpi.arkhipchuk.view.AddressConstants;
 import com.kpi.arkhipchuk.view.RequestConstants;
-/*import org.apache.log4j.Logger;*/
-
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -31,8 +25,6 @@ public class Controller extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-       // final Logger rootLogger = LogManager.getRootLogger();
-
         commands.put("NEW_STUDENT", new StudentRegCommand());
         commands.put("LOGIN_TEACHER", new TeacherLoginCommand());
         commands.put("LOGIN_STUDENT", new StudentLoginCommand());
@@ -48,9 +40,6 @@ public class Controller extends HttpServlet {
         commands.put("CLOSE_COURSE", new CloseCourse());
         commands.put("LOCALE_CHOOSING", new LocaleController());
         commands.put("CREATE_NEW_COURSE", new CreateNewCourse());
-
-//        rootLogger.debug("Command container was successfully initialized");
-//        rootLogger.trace("Total number of commands equals to " + commands.size());
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws javax.servlet.ServletException, IOException {

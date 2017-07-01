@@ -1,7 +1,6 @@
 package com.kpi.arkhipchuk.controller.command;
 
 import com.kpi.arkhipchuk.view.AddressConstants;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

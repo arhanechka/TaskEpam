@@ -3,9 +3,6 @@ package com.kpi.arkhipchuk.controller;
 import com.kpi.arkhipchuk.controller.command.Command;
 import com.kpi.arkhipchuk.view.AddressConstants;
 import com.kpi.arkhipchuk.view.RequestConstants;
-
-import javax.naming.Context;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

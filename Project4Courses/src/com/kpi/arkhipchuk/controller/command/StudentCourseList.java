@@ -7,9 +7,6 @@ import com.kpi.arkhipchuk.model.entity.Student;
 import com.kpi.arkhipchuk.view.AddressConstants;
 import com.kpi.arkhipchuk.view.RegExpressions;
 import com.kpi.arkhipchuk.view.RequestConstants;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

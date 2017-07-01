@@ -6,12 +6,6 @@ import com.kpi.arkhipchuk.model.entity.Student;
 import com.kpi.arkhipchuk.model.entity.Teacher;
 import com.kpi.arkhipchuk.view.AddressConstants;
 import com.kpi.arkhipchuk.view.RequestConstants;
-//import org.apache.log4j.Logger;
-
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -42,7 +36,6 @@ public class CloseCourse extends Command {
             request.setAttribute("message", errorMessage);
             request.setAttribute("backButton", AddressConstants.BACK_BUTTON + currentCourse.getId() + "&courseName=" + currentCourse.getName());
             request.getRequestDispatcher(AddressConstants.ERROR_PAGE).forward(request, response);
-            //  logger.info("Trying to close course with students");
         }
         request.getRequestDispatcher(AddressConstants.TEACHER_COURSE_LIST).forward(request, response);
     }

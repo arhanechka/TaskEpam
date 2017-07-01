@@ -1,8 +1,5 @@
 package com.kpi.arkhipchuk.controller.command;
 
-import com.kpi.arkhipchuk.model.entity.Course;
-import com.kpi.arkhipchuk.model.entity.Student;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

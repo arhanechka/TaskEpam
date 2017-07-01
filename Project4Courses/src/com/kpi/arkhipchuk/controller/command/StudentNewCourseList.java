@@ -7,7 +7,6 @@ import com.kpi.arkhipchuk.model.entity.Student;
 import com.kpi.arkhipchuk.view.AddressConstants;
 import com.kpi.arkhipchuk.view.RegExpressions;
 import com.kpi.arkhipchuk.view.RequestConstants;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,7 +43,6 @@ public class StudentNewCourseList extends Command {
         } else if (!userDataChecking.inputAndCheckData(RegExpressions.PASSWORD_REGEX, password)) {
             ifDataMatch = false;
             errorMessage = (String) session.getAttribute(ERROR_DATA_PASSWORD);
-
         } else if (!userDataChecking.inputAndCheckData(RegExpressions.EMAIL_REGEX, email)) {
             ifDataMatch = false;
             errorMessage = (String) session.getAttribute(ERROR_DATA_EMAIL);

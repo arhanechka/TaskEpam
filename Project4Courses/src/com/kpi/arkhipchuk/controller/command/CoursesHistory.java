@@ -3,7 +3,6 @@ package com.kpi.arkhipchuk.controller.command;
 import com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants.StudentQueryConstants;
 import com.kpi.arkhipchuk.view.AddressConstants;
 import com.kpi.arkhipchuk.view.RequestConstants;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

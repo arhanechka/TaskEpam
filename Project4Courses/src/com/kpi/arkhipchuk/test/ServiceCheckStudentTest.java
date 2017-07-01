@@ -17,6 +17,5 @@ public class ServiceCheckStudentTest {
         DaoFactory daoFactory = mock(DaoFactory.class );
         DaoStudent daoStudent = mock(DaoStudent.class);
         Service service1 = mock(Service.class);
-
     }
 }

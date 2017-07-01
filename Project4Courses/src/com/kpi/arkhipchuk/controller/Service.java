@@ -1,15 +1,9 @@
 package com.kpi.arkhipchuk.controller;
-
-import com.kpi.arkhipchuk.model.UserDataChecking;
 import com.kpi.arkhipchuk.model.dao.*;
-import com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants.CourseQueryConstants;
 import com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants.StudentQueryConstants;
 import com.kpi.arkhipchuk.model.entity.Course;
-import com.kpi.arkhipchuk.model.entity.Mark;
 import com.kpi.arkhipchuk.model.entity.Student;
 import com.kpi.arkhipchuk.model.entity.Teacher;
-import com.kpi.arkhipchuk.view.RegExpressions;
-
 import java.util.*;
 
 /**
@@ -42,7 +36,6 @@ public class Service<T> {
     }
 
     public Student checkAndRegUser(String firstName, String lastName, String login, String password, String email) {
-
         DaoStudent studentDao = daoFactory.createStudentDao();
         if (!studentDao.ifStudentExist(StudentQueryConstants.STUDENT_SELECT_BY_EMAIL, email)) {
             return studentDao.getNewStudent(firstName, lastName, login, password, email);
@@ -69,7 +62,6 @@ public class Service<T> {
     }
 
     public void updateCourseStatus(String query, int... key) {
-        //Boolean ifCourseUpdated;
         DaoCourse courseDao = daoFactory.createCourseDao();
         courseDao.update(query, key);
     }

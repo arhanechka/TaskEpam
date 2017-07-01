@@ -6,7 +6,6 @@ import com.kpi.arkhipchuk.model.entity.Mark;
 import com.kpi.arkhipchuk.model.entity.Student;
 import com.kpi.arkhipchuk.view.AddressConstants;
 import com.kpi.arkhipchuk.view.RequestConstants;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
