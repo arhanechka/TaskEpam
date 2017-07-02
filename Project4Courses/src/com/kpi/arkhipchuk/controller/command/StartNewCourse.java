@@ -16,24 +16,25 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by Anya on 26.06.2017.
+ * Created by Anya on 15.06.2017.
  */
-public class CreateNewCourse extends Command {
-    public static final String PARAM_NEW_COURSE_NAME = "newCourseName";
-    private static final Logger LOGGER = LogManager.getLogger(CreateNewCourse.class.getName());
+public class StartNewCourse extends Command {
+    private static final Logger LOGGER = LogManager.getLogger(StartNewCourse.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        String courseName = request.getParameter(PARAM_NEW_COURSE_NAME);
-        service.createNewCourse(CourseQueryConstants.CREATE_COURSE_BY_NAME, courseName);
+        int courseId = Integer.parseInt(request.getParameter(RequestConstants.PARAM_COURSE_ID));
+        String courseName = request.getParameter(RequestConstants.PARAM_COURSE_NAME);
         Teacher currentTeacher = (Teacher) session.getAttribute(RequestConstants.PARAM_PARTICIPANT);
+        service.updateCourseStatus(CourseQueryConstants.TEACHER_UPDATE_COURSES_FOR_ACTIVATION, 1, courseId);
+        LOGGER.info("Course "+courseName+" was activated");
         List<Course> currentCourseList = service.findListOfCourses(CourseQueryConstants.TEACHER_SELECT_CURRENT_COURSES, currentTeacher.getId());
         request.setAttribute("currentCourseList", currentCourseList);
-        LOGGER.info("currentCourseList is set as attribute");
+        LOGGER.info("currentCourseList was formed repeatedly");
         List<Course> inactiveCourseList = service.findListOfCourses(CourseQueryConstants.TEACHER_SELECT_INACTIVE_COURSES_FOR_ACTIVATION, currentTeacher.getId());
-        LOGGER.info("inactiveCourseList is set as attribute");
         request.setAttribute("inactiveCourseList", inactiveCourseList);
+        LOGGER.info("inactiveCourseList was formed repeatedly");
         request.getServletContext().getRequestDispatcher(AddressConstants.TEACHER_COURSE_LIST).forward(request, response);
 
     }

@@ -10,6 +10,7 @@ import java.io.IOException;
  * Created by Anya on 06.06.2017.
  */
 public class TeacherLoginCommand extends Command {
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getServletContext().getRequestDispatcher(AddressConstants.TEACHER_LOGIN_PAGE).forward(request, response);

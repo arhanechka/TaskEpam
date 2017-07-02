@@ -3,6 +3,8 @@ package com.kpi.arkhipchuk.model.dao.jdbc;
 import com.kpi.arkhipchuk.model.dao.DaoStudent;
 import com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants.StudentQueryConstants;
 import com.kpi.arkhipchuk.model.entity.Student;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,14 +17,7 @@ import java.util.List;
  * Created by Anya on 07.06.2017.
  */
 public class JdbcStudentDao implements DaoStudent {
-
-    protected String getSelectQuery() {
-        return StudentQueryConstants.STUDENT_SELECT_BY_EMAIL_AND_PASSWORD;
-    }
-
-    protected String getInsertNewStudentQuery() {
-        return StudentQueryConstants.STUDENT_INSERT_NEW_STUDENT;
-    }
+    private static final Logger LOGGER = LogManager.getLogger(JdbcOptionalDao.class.getName());
 
     protected List<Student> parseResultSet(ResultSet rs) throws SQLException {
         List<Student> res = new ArrayList<>();
@@ -37,7 +32,7 @@ public class JdbcStudentDao implements DaoStudent {
                 student.setEmail(rs.getString(StudentQueryConstants.STUDENT_COLUMN_EMAIL));
                 res.add(student);
             } catch (SQLException ex) {
-                //  Logger.getLogger(JdbcStudentDao.class.getName()).log(Level.ERROR, null, ex);
+                LOGGER.error("SQLException in "+getClass().getSimpleName()+ ex);
             }
         }
         return res;
@@ -65,7 +60,7 @@ public class JdbcStudentDao implements DaoStudent {
             }
             return list.get(0);
         } catch (SQLException e) {
-            //  Logger.getLogger(JdbcStudentDao.class.getName()).log(Level.ERROR, null, e);
+            LOGGER.error("SQLException in "+getClass().getSimpleName()+ e);
             return null;
         }
     }
@@ -83,7 +78,7 @@ public class JdbcStudentDao implements DaoStudent {
             statement.setString(5, email);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQLException in "+getClass().getSimpleName()+ e);
         }return getStudentByEmail(email,password);
     }
 
@@ -130,7 +125,7 @@ public class JdbcStudentDao implements DaoStudent {
 
             return list;
         } catch (Exception e) {
-            //   logger.log(Level.ERROR, null, e);
+            LOGGER.error("Exception in "+getClass().getSimpleName()+ e);
             throw new RuntimeException(e);
         }
     }
@@ -142,7 +137,7 @@ public class JdbcStudentDao implements DaoStudent {
             if (rs!=null)
             return true;
         } catch (Exception e) {
-            //   logger.log(Level.ERROR, null, e);
+            LOGGER.error("Exception in "+getClass().getSimpleName()+ e);
             throw new RuntimeException(e);
         }
     return false;}

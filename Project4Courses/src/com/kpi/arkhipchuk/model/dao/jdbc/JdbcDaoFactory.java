@@ -1,6 +1,8 @@
 package com.kpi.arkhipchuk.model.dao.jdbc;
 
 import com.kpi.arkhipchuk.model.dao.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -12,12 +14,14 @@ import java.sql.Connection;
 public class JdbcDaoFactory extends DaoFactory {
     private static DataSource dataSource;
     private static JdbcDaoFactory instance;
+    private static final Logger LOGGER = LogManager.getLogger(JdbcDaoFactory.class.getName());
+
     private JdbcDaoFactory() {
         try{
             InitialContext ctx = new InitialContext();
             dataSource = (DataSource) ctx.lookup("java:comp/env/jdbc/mydb");
         }catch (Exception e) {
-           // logger.log(Level.ERROR, null, e);
+           LOGGER.error("Exception in "+getClass().getSimpleName()+ e);
             throw new RuntimeException(e);
         }
     }
@@ -33,7 +37,7 @@ public class JdbcDaoFactory extends DaoFactory {
         try{
             return dataSource.getConnection();
         }catch (Exception e) {
-            // logger.log(Level.ERROR, null, e);
+            LOGGER.error("Exception in "+JdbcDaoFactory.class.getSimpleName()+ e);
             throw new RuntimeException(e);
         }
     }

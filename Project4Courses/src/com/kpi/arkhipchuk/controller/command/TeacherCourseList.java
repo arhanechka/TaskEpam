@@ -5,6 +5,9 @@ import com.kpi.arkhipchuk.model.entity.Course;
 import com.kpi.arkhipchuk.model.entity.Teacher;
 import com.kpi.arkhipchuk.view.AddressConstants;
 import com.kpi.arkhipchuk.view.RequestConstants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +19,8 @@ import java.util.List;
  * Created by Anya on 07.06.2017.
  */
 public class TeacherCourseList extends Command {
+    private static final Logger LOGGER = LogManager.getLogger(TeacherCourseList.class.getName());
+
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
@@ -25,8 +30,10 @@ public class TeacherCourseList extends Command {
             String password = request.getParameter(RequestConstants.PARAM_PASSWORD);
             currentTeacher = service.checkTeacher(email, password);
             session.setAttribute("participant", currentTeacher);
+            LOGGER.info("Teacher " +currentTeacher.getLastName()+" opened the session");
         } else {
             currentTeacher = (Teacher) session.getAttribute(RequestConstants.PARAM_PARTICIPANT);
+            LOGGER.info("Session is exist for teacher " +currentTeacher.getLastName());
         }
         List<Course> currentCourseList = service.findListOfCourses(CourseQueryConstants.TEACHER_SELECT_CURRENT_COURSES, currentTeacher.getId());
         request.setAttribute("currentCourseList", currentCourseList);

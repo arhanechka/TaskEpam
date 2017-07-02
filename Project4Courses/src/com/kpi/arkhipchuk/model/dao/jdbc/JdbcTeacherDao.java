@@ -4,6 +4,8 @@ import com.kpi.arkhipchuk.model.dao.DaoTeacher;
 import com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants.CourseQueryConstants;
 import com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants.TeacherQueryConstants;
 import com.kpi.arkhipchuk.model.entity.Teacher;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,55 +18,7 @@ import java.util.List;
  * Created by Anya on 07.06.2017.
  */
 public class JdbcTeacherDao implements DaoTeacher{
-
-    protected String getSelectQuery() {
-        return TeacherQueryConstants.TEACHER_SELECT_BY_EMAIL_AND_PASSWORD;
-    }
-    protected String getSelectStudentsListForCurrentCourseQuery(){
-        return TeacherQueryConstants.TEACHER_SELECT_STUDENT_LIST_FOR_CURRENT_COURSE;
-    }
-    protected String getUpdateMarkForStudentsFromCurrentCourseQuery(){
-        return TeacherQueryConstants.TEACHER_UPDATE_MARK_FOR_STUDENT_FROM_CURRENT_COURSE;
-    }
-    protected String getSelectCourseForChangingStatus(){
-        return CourseQueryConstants.TEACHER_SELECT_INACTIVE_COURSES_FOR_ACTIVATION;
-    }
-    protected String getUpdateCourseStatusQuery(){
-        return TeacherQueryConstants.TEACHER_UPDATE_COURSE_STATUS;
-    }
-    protected String getSelectListOfStudentsFromFinishedCourse(){
-        return TeacherQueryConstants.TEACHER_SELECT_HISTORY_OF_STUDENTS_FROM_FINISHED_COURSE;
-    }
-
-//    protected String getUpdateQuery() {
-//        return "UPDATE Teacher SET first_name = ?, last_name = ?, password = ? WHERE id = ?";
-//    }
-//
-//    protected String getDeleteQuery() {
-//        return "DELETE FROM Teacher WHERE id = ?";
-//    }
-
-//    @Override
-//    protected void prepareStatementForCreate(PreparedStatement statement, Teacher entity) throws SQLException {
-//        statement.setString(1, entity.getFirstName());
-//        statement.setString(2, entity.getLastName());
-//        statement.setString(3, entity.getPassword());
-//
-//    }
-//
-//    @Override
-//    protected void prepareStatementForUpdate(PreparedStatement statement, Teacher entity) throws SQLException {
-//        statement.setString(1, entity.getFirstName());
-//        statement.setString(2, entity.getLastName());
-//        statement.setString(3, entity.getPassword());
-//        statement.setInt(4, entity.getId());
-//    }
-//
-//    @Override
-//    protected void prepareStatementForDelete(PreparedStatement statement, Teacher entity) throws SQLException {
-//        statement.setInt(1, entity.getId());
-//
-//    }
+    private static final Logger LOGGER = LogManager.getLogger(JdbcOptionalDao.class.getName());
 
     protected List<Teacher> parseResultSet(ResultSet rs) throws SQLException {
         List<Teacher> res = new ArrayList<>();
@@ -79,7 +33,7 @@ public class JdbcTeacherDao implements DaoTeacher{
                 teacher.setEmail(rs.getString(TeacherQueryConstants.TEACHER_COLUMN_EMAIL));
                 res.add(teacher);
             }catch(SQLException ex) {
-                //  Logger.getLogger(JdbcStudentDao.class.getName()).log(Level.ERROR, null, ex);
+                LOGGER.error("SQLException in "+getClass().getSimpleName()+ ex);
             }
         }
         return res;
@@ -136,7 +90,7 @@ public class JdbcTeacherDao implements DaoTeacher{
             }
             return list.get(0);
         } catch (SQLException e) {
-            //  Logger.getLogger(JdbcStudentDao.class.getName()).log(Level.ERROR, null, e);
+            LOGGER.error("SQLException in "+getClass().getSimpleName()+ e);
             return null;
         }
     }

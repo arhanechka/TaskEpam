@@ -2,6 +2,8 @@ package com.kpi.arkhipchuk.model.dao.jdbc;
 
 import com.kpi.arkhipchuk.model.dao.DaoOptional;
 import com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants.StudentQueryConstants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,6 +16,8 @@ import java.util.List;
  * Created by Anya on 13.06.2017.
  */
 public class JdbcOptionalDao implements DaoOptional {
+    private static final Logger LOGGER = LogManager.getLogger(JdbcOptionalDao.class.getName());
+
     @Override
     public void create(ArrayList<Object> entity) {
 
@@ -50,7 +54,7 @@ public class JdbcOptionalDao implements DaoOptional {
                 }
                 res.add(temp);
             } catch (SQLException ex) {
-                //  Logger.getLogger(JdbcStudentDao.class.getName()).log(Level.ERROR, null, ex);
+                LOGGER.error("SQLException in "+getClass().getSimpleName()+ ex);
             }
         }
         return res;
@@ -74,7 +78,7 @@ public class JdbcOptionalDao implements DaoOptional {
 
             return list;
         } catch (Exception e) {
-            //   logger.log(Level.ERROR, null, e);
+            LOGGER.error("Exception in "+getClass().getSimpleName()+ e);
             throw new RuntimeException(e);
         }
 
@@ -91,7 +95,7 @@ public class JdbcOptionalDao implements DaoOptional {
             statement.setInt(4, courseId);
             statement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            LOGGER.error("SQLException in "+getClass().getSimpleName()+ e);
         }
 
 

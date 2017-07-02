@@ -3,6 +3,9 @@ package com.kpi.arkhipchuk.controller;
 import com.kpi.arkhipchuk.controller.command.Command;
 import com.kpi.arkhipchuk.view.AddressConstants;
 import com.kpi.arkhipchuk.view.RequestConstants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +18,7 @@ import java.util.*;
  */
 public class LocaleController extends Command {
     public static final String PARAM_LOCALE = "locale";
+    private static final Logger LOGGER = LogManager.getLogger(LocaleController.class.getName());
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -23,6 +27,7 @@ public class LocaleController extends Command {
         String locale = request.getParameter(PARAM_LOCALE);
         HttpSession session = request.getSession(false);
         session.setAttribute("locale", locale);
+        LOGGER.info("Locale choosen is "+locale);
         ResourceBundle bundle = ResourceBundle.getBundle(TRANSLATE_BUNDLE_NAME,
                 new Locale(locale));
         for (Enumeration e = bundle.getKeys(); e.hasMoreElements(); ) {
