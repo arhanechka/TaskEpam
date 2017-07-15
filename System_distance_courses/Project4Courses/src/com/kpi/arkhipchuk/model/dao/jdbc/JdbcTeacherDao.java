@@ -20,6 +20,7 @@ import java.util.List;
 public class JdbcTeacherDao implements DaoTeacher {
     private static final Logger LOGGER = LogManager.getLogger(JdbcOptionalDao.class.getName());
 
+
     protected List<Teacher> parseResultSet(ResultSet rs) throws SQLException {
         List<Teacher> res = new ArrayList<>();
         while (rs.next()) {

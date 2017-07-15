@@ -26,6 +26,7 @@ public class CloseCourse extends Command {
     private static final Logger LOGGER = LogManager.getLogger(CloseCourse.class.getName());
     CourseService courseService = CourseService.getInstance();
     StudentService studentService = StudentService.getInstance();
+    TeacherCourseList teacherCourseList = new TeacherCourseList();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,10 +37,7 @@ public class CloseCourse extends Command {
         if (studentListForCurrentCourse == null) {
             LOGGER.info("List of students for course "+ currentCourse.getName() +" is empty");
             courseService.getUpdatedCourseStatusForTeacher(0, currentCourse.getId());
-            List<Course> currentCourseList = courseService.getListOfCurrentCoursesForTeacher(currentTeacher.getId());
-            request.setAttribute("currentCourseList", currentCourseList);
-            List<Course> inactiveCourseList = courseService.getListOfAccessableCoursesForTeacher(currentTeacher.getId());
-            request.setAttribute("inactiveCourseList", inactiveCourseList);
+            teacherCourseList.execute(request,response);
         } else {
             LOGGER.error("List of students for course "+ currentCourse.getName() +" is not empty. Message: "+(String) session.getAttribute(PARAM_ERROR_CLOSING_COURSE));
             String errorMessage = (String) session.getAttribute(PARAM_ERROR_CLOSING_COURSE);

@@ -24,6 +24,7 @@ public class JoinNewCourseList extends Command {
     private static final Logger LOGGER = LogManager.getLogger(JoinNewCourseList.class.getName());
     CourseService courseService = CourseService.getInstance();
     Service service = Service.getInstance();
+    StudentCourseList studentCourseList = new StudentCourseList();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,14 +34,7 @@ public class JoinNewCourseList extends Command {
         int currentStudentId = currentStudent.getId();
         courseService.updateCourseStatusForJoin(currentStudentId, courseId);
         LOGGER.info("Status of course " + courseId + "was updated");
-        List<Course> currentCourseList = courseService.getListOfCurrentCoursesForStudent(currentStudent.getId());
-        request.setAttribute("currentCourseList1", currentCourseList);
-        List<Course> accessableCourseList = courseService.getListOfAccessableCoursesForStudent(currentStudent.getId(), 1);
-        request.setAttribute("accessableCourseList1", accessableCourseList);
-        LOGGER.info("Accessable course list was created repeatedly");
-        Map<String, String> finishedCourseList = courseService.findListOfFinishedCoursesAndMarks(currentStudent.getId());
-        LOGGER.info("Finished course list was created repeatedly");
-        request.setAttribute("finishedCourseList1", finishedCourseList);
+        studentCourseList.execute(request, response);
         request.getServletContext().getRequestDispatcher(AddressConstants.STUDENT_COURSE_LIST).forward(request, response);
     }
 }

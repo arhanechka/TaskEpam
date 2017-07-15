@@ -22,6 +22,7 @@ import java.util.List;
 public class StartNewCourse extends Command {
     private static final Logger LOGGER = LogManager.getLogger(StartNewCourse.class.getName());
     CourseService courseService = CourseService.getInstance();
+    TeacherCourseList teacherCourseList = new TeacherCourseList();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,11 +32,7 @@ public class StartNewCourse extends Command {
         Teacher currentTeacher = (Teacher) session.getAttribute(RequestConstants.PARAM_PARTICIPANT);
         courseService.getUpdatedCourseStatusForTeacher(1, courseId);
         LOGGER.info("Course "+courseName+" was activated");
-        List<Course> currentCourseList = courseService.getListOfCurrentCoursesForTeacher(currentTeacher.getId());
-        request.setAttribute("currentCourseList", currentCourseList);
-        LOGGER.info("currentCourseList was formed repeatedly");
-        List<Course> inactiveCourseList = courseService.getListOfAccessableCoursesForTeacher(currentTeacher.getId());
-        request.setAttribute("inactiveCourseList", inactiveCourseList);
+        teacherCourseList.execute(request,response);
         LOGGER.info("inactiveCourseList was formed repeatedly");
         request.getServletContext().getRequestDispatcher(AddressConstants.TEACHER_COURSE_LIST).forward(request, response);
 

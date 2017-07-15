@@ -26,7 +26,8 @@ public class SetStudentMark extends Command {
     public static final String PARAM_COMMENT = "comment";
     private static final Logger LOGGER = LogManager.getLogger(SetStudentMark.class.getName());
     StudentService studentService = StudentService.getInstance();
-Service service = Service.getInstance();
+    Service service = Service.getInstance();
+    StudentsListForCurrentCourse studentsListForCurrentCourse = new StudentsListForCurrentCourse();
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,10 +39,8 @@ Service service = Service.getInstance();
         String comment = request.getParameter(PARAM_COMMENT);
         request.setAttribute("comment", comment);
         service.setStudentMark(mark, comment, studentId, currentCourse.getId());
-        LOGGER.info("Mark "+mark +" for student "+studentId+" was added");
-        List<Student> studentListForCurrentCourse = studentService.findListOfStudentForCourses(currentCourse.getId());
-        LOGGER.info("studentListForCurrentCourse was builded repeatedly");
-        request.setAttribute("studentListForCurrentCourse", studentListForCurrentCourse);
+        LOGGER.info("Mark " + mark + " for student " + studentId + " was added");
+        studentsListForCurrentCourse.execute(request,response);
         request.getServletContext().getRequestDispatcher(AddressConstants.CURRENT_COURSE_STUDENT_LIST).forward(request, response);
 
     }
