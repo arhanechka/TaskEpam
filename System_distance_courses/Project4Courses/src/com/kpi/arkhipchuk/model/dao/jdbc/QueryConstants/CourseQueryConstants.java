@@ -9,6 +9,10 @@ public final class CourseQueryConstants {
     public static final String COURSE_COLUMN_STATUS = "course_status";
     public static final String SELECT_COURSE = "SELECT * FROM course\n" +
             "WHERE course_id = ?;";
+    public static final String COURSE_CREATE = "INSERT INTO course (course_name, course_status) values (?, ?);";
+    public static final String COURSE_DELETE = "DELETE FROM course WHERE course_id=?;";
+    public static final String COURSE_UPDATE = "UPDATE course " +
+            "SET course_name = ?, course_status = ? WHERE st_id=?;";
     public static final String STUDENT_SELECT_CURRENT_COURSES = "SELECT * FROM course c \n" +
             "JOIN stud_course_mark AS scm ON scm.course_id=c.course_id \n" +
             "JOIN student AS s ON s.st_id=scm.st_id WHERE scm.st_id=s.st_id AND isnull(scm.mark_id) AND s.st_id=?;";
@@ -32,6 +36,14 @@ public final class CourseQueryConstants {
     public static final String TEACHER_UPDATE_COURSES_FOR_ACTIVATION = "UPDATE course as co\n" +
             "SET co.course_status=?\n" +
             "WHERE co.course_id=?;";
-    public static final String CREATE_COURSE_BY_NAME = "INSERT INTO course (course_name, course_status)\n" +
-            "VALUES (?, 0);";
+    public static final String STUDENT_SELECT_FINISHED_COURSES = "SELECT c.course_name, m.mark_name FROM mark m, course c \n" +
+            "JOIN stud_course_mark AS scm ON scm.course_id=c.course_id\n" +
+            "WHERE NOT isnull(scm.mark_id) AND scm.mark_id=m.mark_id AND scm.st_id=?;";
+//    public static final String STUDENT_SELECT_LIST_OF_MARKS_AND_COMMENTS = "SELECT m.mark_name, scm.comment FROM mark m, stud_course_mark scm\n" +
+//            "WHERE NOT isnull(scm.mark_id) AND scm.mark_id=m.mark_id AND scm.st_id=?\n" +
+//            "order by scm.course_id;";
+//    public static final String STUDENT_SELECT_FINISHED_COURSES = "SELECT c.course_id, c.course_name, c.course_status FROM course c\n" +
+//            "            JOIN stud_course_mark AS scm ON scm.course_id=c.course_id\n" +
+//            "            WHERE NOT isnull(scm.mark_id) AND scm.st_id=1\n" +
+//            "            order by scm.course_id";
 }

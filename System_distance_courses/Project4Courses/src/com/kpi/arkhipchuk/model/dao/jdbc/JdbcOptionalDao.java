@@ -86,11 +86,6 @@ public class JdbcOptionalDao implements DaoOptional {
     }
 
     @Override
-    public void insert(ArrayList<Object> entity) {
-
-    }
-
-    @Override
     public void delete(ArrayList<Object> entity) {
 
     }

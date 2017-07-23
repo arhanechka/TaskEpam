@@ -7,10 +7,7 @@ import com.kpi.arkhipchuk.model.entity.Teacher;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,22 +60,55 @@ public class JdbcTeacherDao implements DaoTeacher {
 
     @Override
     public void create(Teacher entity) {
+        try (Connection connection = JdbcDaoFactory.getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(TeacherQueryConstants.TEACHER_CREATE, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, entity.getFirstName());
+            statement.setString(2, entity.getLastName());
+            statement.setString(3, entity.getLogin());
+            statement.setString(4, entity.getPassword());
+            statement.setString(5, entity.getEmail());
+            statement.executeUpdate();
+            ResultSet keys = statement.getGeneratedKeys();
+            if (keys.next()) {
+                entity.setId(keys.getInt(1));
+            }
+        } catch (Exception e) {
+            LOGGER.error("Exception in " + getClass().getSimpleName() + e);
+            throw new RuntimeException(e);
+        }
 
     }
 
     @Override
     public void update(Teacher entity) {
-
-    }
-
-    @Override
-    public void insert(Teacher entity) {
-
+        try (Connection connection = JdbcDaoFactory.getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(TeacherQueryConstants.TEACHER_UPDATE)) {
+            statement.setString(1, entity.getFirstName());
+            statement.setString(2, entity.getLastName());
+            statement.setString(3, entity.getLogin());
+            statement.setString(4, entity.getPassword());
+            statement.setString(5, entity.getEmail());
+            statement.setInt(5, entity.getId());
+            statement.executeUpdate();
+        } catch (Exception e) {
+            LOGGER.error("Exception in " + getClass().getSimpleName() + e);
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void delete(Teacher entity) {
-
+        try (Connection connection = JdbcDaoFactory.getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(TeacherQueryConstants.TEACHER_DELETE)) {
+            statement.setInt(1, entity.getId());
+            statement.executeUpdate();
+        } catch (Exception e) {
+            LOGGER.error("Exception in " + getClass().getSimpleName() + e);
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

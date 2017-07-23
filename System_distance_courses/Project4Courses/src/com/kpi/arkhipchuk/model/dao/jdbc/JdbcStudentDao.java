@@ -7,10 +7,7 @@ import com.kpi.arkhipchuk.model.entity.Student;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,9 +40,9 @@ public class JdbcStudentDao implements DaoStudent {
     @Override
     public Student getStudentByEmail(String email, String password) {
         List<Student> list;
-        String sql = StudentQueryConstants.STUDENT_SELECT_BY_EMAIL_AND_PASSWORD;
         try (Connection connection = JdbcDaoFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql)) {
+             PreparedStatement statement =
+                     connection.prepareStatement(StudentQueryConstants.STUDENT_SELECT_BY_EMAIL_AND_PASSWORD)) {
             statement.setString(1, email);
             statement.setString(2, password);
             ResultSet rs = statement.executeQuery();
@@ -61,21 +58,9 @@ public class JdbcStudentDao implements DaoStudent {
     }
 
     @Override
-    public Student getNewStudent(String firstName, String lastName, String login, String password, String email) {
-        String sqlInsert = StudentQueryConstants.STUDENT_INSERT_NEW_STUDENT;
-        List<Student> list;
-        try (Connection connection = JdbcDaoFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sqlInsert)) {
-            statement.setString(1, firstName);
-            statement.setString(2, lastName);
-            statement.setString(3, login);
-            statement.setString(4, password);
-            statement.setString(5, email);
-            statement.executeUpdate();
-        } catch (SQLException e) {
-            LOGGER.error("SQLException in " + getClass().getSimpleName() + e);
-        }
-        return getStudentByEmail(email, password);
+    public Student getNewStudent(Student newStudent) {
+        create(newStudent);
+        return getStudentByEmail(newStudent.getEmail(), newStudent.getPassword());
     }
 
     @Override
@@ -113,22 +98,54 @@ public class JdbcStudentDao implements DaoStudent {
 
     @Override
     public void create(Student entity) {
-
+        try (Connection connection = JdbcDaoFactory.getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(StudentQueryConstants.STUDENT_CREATE, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, entity.getFirstName());
+            statement.setString(2, entity.getLastName());
+            statement.setString(3, entity.getLogin());
+            statement.setString(4, entity.getPassword());
+            statement.setString(5, entity.getEmail());
+            statement.executeUpdate();
+            ResultSet keys = statement.getGeneratedKeys();
+            if (keys.next()) {
+                entity.setId(keys.getInt(1));
+            }
+        } catch (Exception e) {
+            LOGGER.error("Exception in " + getClass().getSimpleName() + e);
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void update(Student entity) {
-
-    }
-
-    @Override
-    public void insert(Student entity) {
-
+        try (Connection connection = JdbcDaoFactory.getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(StudentQueryConstants.STUDENT_UPDATE)) {
+            statement.setString(1, entity.getFirstName());
+            statement.setString(2, entity.getLastName());
+            statement.setString(3, entity.getLogin());
+            statement.setString(4, entity.getPassword());
+            statement.setString(5, entity.getEmail());
+            statement.setInt(5, entity.getId());
+            statement.executeUpdate();
+        } catch (Exception e) {
+            LOGGER.error("Exception in " + getClass().getSimpleName() + e);
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void delete(Student entity) {
-
+        try (Connection connection = JdbcDaoFactory.getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(StudentQueryConstants.STUDENT_DELETE)) {
+            statement.setInt(1, entity.getId());
+            statement.executeUpdate();
+        } catch (Exception e) {
+            LOGGER.error("Exception in " + getClass().getSimpleName() + e);
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

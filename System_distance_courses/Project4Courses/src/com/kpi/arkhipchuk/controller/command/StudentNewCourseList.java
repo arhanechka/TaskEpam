@@ -1,7 +1,6 @@
 package com.kpi.arkhipchuk.controller.command;
 
-import com.kpi.arkhipchuk.model.UserDataChecking;
-import com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants.CourseQueryConstants;
+import com.kpi.arkhipchuk.services.UserDataChecking;
 import com.kpi.arkhipchuk.model.entity.Course;
 import com.kpi.arkhipchuk.model.entity.Student;
 import com.kpi.arkhipchuk.model.exceptions.UserIsAlreadyExistException;
@@ -62,17 +61,20 @@ public class StudentNewCourseList extends Command {
             errorMessage = (String) session.getAttribute(ERROR_DATA_EMAIL);
         }
         if (ifDataMatch == true) {
-            Student currentStudent = studentService.checkAndRegUser(firstName, lastName, login, password, email);
+            Student currentStudent= studentService
+                    .checkAndRegUser(new Student(0, firstName, lastName, login, password, email));
             if (currentStudent != null) {
                 session.setAttribute("participant", currentStudent);
                 LOGGER.info("New student "+currentStudent.getLastName()+" opened the session");
-                List<Course> accessableCourseList = courseService.getListOfAccessableCoursesForStudent(currentStudent.getId(), 1);
+                List<Course> accessableCourseList = courseService
+                        .getListOfAccessableCoursesForStudent(currentStudent.getId(), 1);
                 request.setAttribute("accessableCourseList1", accessableCourseList);
             } else {
                 errorMessage = (String) session.getAttribute(ERROR_USER_EXIST);
                 LOGGER.error(errorMessage);
                 request.setAttribute("message", errorMessage);
-                request.setAttribute("backButton", AddressConstants.DISPATCHER+AddressConstants.BACK_BUTTON_REGISTRATION);
+                request.setAttribute("backButton", AddressConstants.DISPATCHER+AddressConstants
+                        .BACK_BUTTON_REGISTRATION);
                 request.getRequestDispatcher(AddressConstants.ERROR_PAGE).forward(request, response);
             }
         } else {

@@ -44,13 +44,13 @@ public class StudentService {
 
 
 
-    public Student checkAndRegUser(String firstName, String lastName, String login, String password, String email) throws UserIsAlreadyExistException {
+    public Student checkAndRegUser(Student newStudent) throws UserIsAlreadyExistException {
         DaoStudent studentDao = daoFactory.createStudentDao();
-        if (!studentDao.ifStudentExist(StudentQueryConstants.STUDENT_SELECT_BY_EMAIL, email)) {
+        if (!studentDao.ifStudentExist(StudentQueryConstants.STUDENT_SELECT_BY_EMAIL, newStudent.getEmail())) {
             LOGGER.error(USER_EXIST_EXCEPTION);
-            throw new UserIsAlreadyExistException();
+            return null;
         }
-        return studentDao.getNewStudent(firstName, lastName, login, password, email);
+        return studentDao.getNewStudent(newStudent);
     }
 
     public List<Student> findListOfStudentForCourses(int id) {

@@ -2,14 +2,12 @@ package com.kpi.arkhipchuk.model.dao.jdbc;
 
 import com.kpi.arkhipchuk.model.dao.DaoCourse;
 import com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants.CourseQueryConstants;
+import com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants.StudentQueryConstants;
 import com.kpi.arkhipchuk.model.entity.Course;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -20,10 +18,6 @@ import java.util.TreeMap;
  */
 public class JdbcCourseDao implements DaoCourse {
     private static final Logger LOGGER = LogManager.getLogger(JdbcCourseDao.class.getName());
-    public static final String STUDENT_SELECT_FINISHED_COURSES = "SELECT c.course_name, m.mark_name FROM mark m, course c \n" +
-            "JOIN stud_course_mark AS scm ON scm.course_id=c.course_id\n" +
-            "WHERE NOT isnull(scm.mark_id) AND scm.mark_id=m.mark_id AND scm.st_id=?;";
-
 
     protected List<Course> parseResultSet(ResultSet rs) throws SQLException {
         List<Course> res = new ArrayList<>();
@@ -87,6 +81,7 @@ public class JdbcCourseDao implements DaoCourse {
         }
     }
 
+
     @Override
     public List<Course> findAllCurrentCoursesForTeacher(int id) {
         List<Course> list;
@@ -149,7 +144,7 @@ public class JdbcCourseDao implements DaoCourse {
         Map<String, String> result = new TreeMap<>();
         int[] keys = key;
         try (Connection connection = JdbcDaoFactory.getConnection();
-             PreparedStatement statement = connection.prepareStatement(STUDENT_SELECT_FINISHED_COURSES)) {
+             PreparedStatement statement = connection.prepareStatement(CourseQueryConstants.STUDENT_SELECT_FINISHED_COURSES)) {
             for (int i = 0; i < keys.length; i++) {
                 statement.setInt(i + 1, keys[i]);
             }
@@ -198,18 +193,47 @@ public class JdbcCourseDao implements DaoCourse {
     }
     @Override
     public void create(Course entity) {
+        try (Connection connection = JdbcDaoFactory.getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(CourseQueryConstants.COURSE_CREATE, Statement.RETURN_GENERATED_KEYS)) {
+            statement.setString(1, entity.getName());
+            statement.setInt(2, entity.getStatus());
+            statement.executeUpdate();
+            ResultSet keys = statement.getGeneratedKeys();
+            if (keys.next()) {
+                entity.setId(keys.getInt(1));
+            }
+        } catch (Exception e) {
+            LOGGER.error("Exception in " + getClass().getSimpleName() + e);
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void update(Course entity) {
-    }
-
-    @Override
-    public void insert(Course entity) {
+        try (Connection connection = JdbcDaoFactory.getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(CourseQueryConstants.COURSE_UPDATE)) {
+            statement.setString(1, entity.getName());
+            statement.setInt(2, entity.getStatus());
+            statement.executeUpdate();
+        } catch (Exception e) {
+            LOGGER.error("Exception in " + getClass().getSimpleName() + e);
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
     public void delete(Course entity) {
+        try (Connection connection = JdbcDaoFactory.getConnection();
+             PreparedStatement statement =
+                     connection.prepareStatement(CourseQueryConstants.COURSE_DELETE)) {
+            statement.setInt(1, entity.getId());
+            statement.executeUpdate();
+        } catch (Exception e) {
+            LOGGER.error("Exception in " + getClass().getSimpleName() + e);
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

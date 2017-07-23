@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import java.util.Map;
 /**
  * Front controller
  */
+@WebServlet("/rest/*")
 public class Controller extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static Map<String, Command> commands = new HashMap<>();
@@ -53,13 +55,6 @@ public class Controller extends HttpServlet {
         }
     }
 
-    /**
-     * @param request
-     * @param response
-     * @throws javax.servlet.ServletException
-     * @throws java.io.IOException
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-     */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws javax.servlet.ServletException, IOException {
         try {
             processRequest(request, response);
@@ -71,6 +66,7 @@ public class Controller extends HttpServlet {
     void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, UserIsAlreadyExistException {
         request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession();
+        //TODO:REST
         String page = request.getParameter(RequestConstants.PARAM_PAGE);
         LOGGER.info("Page parameter of request "+ page +" was received");
             try {

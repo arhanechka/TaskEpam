@@ -4,13 +4,20 @@ package com.kpi.arkhipchuk.model.dao.jdbc.QueryConstants;
  * Final class with query constants for entity teacher sql requests
  */
 public final class TeacherQueryConstants {
-    public static final String TEACHER_COLUMN_ID = "teach_id";
-    public static final String TEACHER_COLUMN_FIRST_NAME = "teach_first_name";
-    public static final String TEACHER_COLUMN_LAST_NAME = "teach_last_name";
-    public static final String TEACHER_COLUMN_LOGIN = "teach_login";
-    public static final String TEACHER_COLUMN_PASSWORD = "teach_pasword";
-    public static final String TEACHER_COLUMN_EMAIL = "teach_email";
-    public static final String TEACHER_SELECT_BY_EMAIL_AND_PASSWORD = "SELECT * FROM teacher WHERE  teach_email = ? AND teach_pasword = ?";
+    public static final String TEACHER_COLUMN_ID = "teacher_id";
+    public static final String TEACHER_COLUMN_FIRST_NAME = "teacher_first_name";
+    public static final String TEACHER_COLUMN_LAST_NAME = "teacher_last_name";
+    public static final String TEACHER_COLUMN_LOGIN = "teacher_login";
+    public static final String TEACHER_COLUMN_PASSWORD = "teacher_pasword";
+    public static final String TEACHER_COLUMN_EMAIL = "teacher_email";
+    public static final String TEACHER_SELECT_BY_EMAIL_AND_PASSWORD = "SELECT * FROM teacher " +
+            "WHERE  teacher_email = ? AND teacher_pasword = ?";
+    public static final String TEACHER_CREATE = "INSERT INTO teacher " +
+            "(teacher_first_name, teacher_last_name, teacher_login, teacher_password, teacher_email) VALUES (?, ?, ?, ?, ?);";
+    public static final String TEACHER_DELETE = "DELETE FROM teacher WHERE teacher_id=?;";
+    public static final String TEACHER_UPDATE = "UPDATE teacher " +
+            "SET teacher_first_name = ?, teacher_last_name = ?, teacher_login = ?, teacher_password = ?, teacher_email = ?" +
+            "WHERE teacher_id=?;";
     public static final String TEACHER_SELECT_STUDENT_LIST_FOR_CURRENT_COURSE = "SELECT s.st_first_name, s.st_last_name, co.course_name \n" +
             "FROM course as co\n" +
             "JOIN teacher_course AS tc ON tc.course_id=co.course_id \n" +
